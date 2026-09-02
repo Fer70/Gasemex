@@ -119,7 +119,6 @@ def cambiar_estado(id_pedido):
 
     pedido.estado_pedido = nuevo_estado
     db.session.commit()
-    enviar_correo(pedido, cliente)
 
     email = cliente.email
     nombre_usuario = cliente.nombre_usuario
