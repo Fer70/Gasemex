@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 from blueprints.role_views import admin_required
 from flask_mail import Message
 from extensions import mail
+import threading
 
 admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
 
@@ -120,22 +121,44 @@ def cambiar_estado(id_pedido):
     db.session.commit()
     enviar_correo(pedido, cliente)
 
+    email = cliente.email
+    nombre_usuario = cliente.nombre_usuario
+    id_pedido = pedido.id_pedido
+    estado_pedido = pedido.estado_pedido
+
+    app = current_app._get_current_object()
+
+    def enviar_en_segundo_plano():
+        with app.app_context():
+            enviar_correo(
+                email,
+                nombre_usuario,
+                id_pedido,
+                estado_pedido
+            )
+
+    threading.Thread(
+        target=enviar_en_segundo_plano,
+        daemon=True
+    ).start()
+
     flash("Estado del pedido actualizado.", "success")
     return redirect(url_for("admin.index"))
 
 
-def enviar_correo(pedido, cliente):
+def enviar_correo(email, nombre_usuario, id_pedido, estado_pedido):
     msg = Message(
-        subject=f"Actualización de tu pedido #{pedido.id_pedido}",
+        subject=f"Actualización de tu pedido #{id_pedido}",
         sender=current_app.config["MAIL_USERNAME"],
-        recipients=[cliente.email]
+        recipients=[email]
     )
+
     msg.body = f"""
-Hola {cliente.nombre_usuario},
+Hola {nombre_usuario},
 
-El estado de tu pedido #{pedido.id_pedido} ha sido actualizado.
+El estado de tu pedido #{id_pedido} ha sido actualizado.
 
-Nuevo estado: {pedido.estado_pedido}
+Nuevo estado: {estado_pedido}
 
 Gracias por tu compra.
 
