@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+<form action="{{ url_for('products.buscar') }}" method="GET" class="d-flex">
+    <input 
+        type="search"
+        name="q"
+        class="form-control me-2"
+        placeholder="Buscar productos..."
+        value="{{ request.args.get('q', '') }}"
+    >
+
+    <button class="btn btn-danger" type="submit">
+        Buscar
+    </button>
+</form>
+    <div class="text-center mb-5">
+
+        <h1 class="fw-bold">
+            Catálogo de Productos
+        </h1>
+
+
+        <p class="text-muted">
+            Selecciona una categoría para explorar nuestros productos.
+        </p>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+
+            <a href="{{ url_for('products.categoria', nombre='Gases') }}"
+               class="text-decoration-none">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        !
+                    </div>
+
+                    <h4>Gases</h4>
+
+                    <p>
+                        En proceso.....
+                    </p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <a href="{{ url_for('products.categoria', nombre='Soldaduras') }}"
+               class="text-decoration-none">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        🔥
+                    </div>
+
+                    <h4>Soldaduras</h4>
+
+                    <p>
+                        Electrodos, microalambres, varillas y más para soldar.
+                    </p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <a href="{{ url_for('products.categoria', nombre='Consumibles') }}"
+               class="text-decoration-none">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        !
+                    </div>
+
+                    <h4>Consumibles</h4>
+
+                    <p>
+                        En proceso.....
+                    </p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <a href="{{ url_for('products.categoria', nombre='Accesorios') }}"
+               class="text-decoration-none">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        !
+                    </div>
+
+                    <h4>Accesorios</h4>
+
+                    <p>
+                        En proceso.....
+                    </p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <a href="{{ url_for('products.categoria', nombre='Seguridad') }}"
+               class="text-decoration-none">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        !
+                    </div>
+
+                    <h4>Seguridad</h4>
+
+                    <p>
+                        En proceso.....
+                    </p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <a href="{{ url_for('products.categoria', nombre='Abrasivos') }}"
+               class="text-decoration-none">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        !
+                    </div>
+
+                    <h4>Abrasivos</h4>
+
+                    <p>
+                        En proceso.....
+                    </p>
+
+                </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+
+            <a href="{{ url_for('products.categoria', nombre='Equipos') }}"
+               class="text-decoration-none">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        !
+                    </div>
+
+                    <h4>Equipos</h4>
+
+                    <p>
+                        En proceso.....
+                    </p>
+
+                </div>
+
+            </a>
+
+        </div>
+        <div class="col-md-4">
+
+            <a href="{{ url_for('products.categoria', nombre='Plasma') }}"
+               class="text-decoration-none">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        !
+                    </div>
+
+                    <h4>Plasma</h4>
+
+                    <p>
+                        En proceso.....
+                    </p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+
+            <a href="{{ url_for('products.categoria', nombre='Medicinal') }}"
+               class="text-decoration-none">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        !
+                    </div>
+
+                    <h4>Medicinal</h4>
+
+                    <p>
+                        En proceso.....
+                    </p>
+
+                </div>
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}

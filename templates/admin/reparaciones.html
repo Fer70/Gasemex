@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block title %}Reparaciones{% endblock %}
+
+{% block content %}
+    <div class="card shadow-sm mb-4">
+
+    <div class="card-header bg-dark text-white">
+
+        <h5 class="mb-0">
+            Reparaciones
+        </h5>
+
+    </div>
+
+    <div class="card-body table-responsive">
+
+        {% if reparaciones %}
+
+        <table class="table table-hover align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>#</th>
+
+                    <th>Cliente</th>
+
+                    <th>Equipo</th>
+
+                    <th>Descripción</th>
+
+                    <th>Fecha</th>
+
+                    <th>Estado</th>
+
+                    <th>Actualizar</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for reparacion in reparaciones %}
+
+                <tr>
+
+                    <td>
+
+                        {{ reparacion.id_reparacion }}
+
+                    </td>
+
+                    <td>
+
+                        {{ reparacion.usuario.nombre_usuario }}
+
+                    </td>
+
+                    <td>
+
+                        {{ reparacion.nombre_reparacion }}
+
+                    </td>
+
+                    <td>
+
+                        {{ reparacion.descripcion_reparacion }}
+
+                    </td>
+
+                    <td>
+
+                        {{ reparacion.fecha_reparacion.strftime("%d/%m/%Y") }}
+
+                    </td>
+
+                    <td>
+
+                        {% if reparacion.estado_reparacion == "Recibido" %}
+
+                            <span class="badge bg-secondary">
+
+                                {{ reparacion.estado_reparacion }}
+
+                            </span>
+
+                        {% elif reparacion.estado_reparacion == "En revisión" %}
+
+                            <span class="badge bg-warning text-dark">
+
+                                {{ reparacion.estado_reparacion }}
+
+                            </span>
+
+                        {% elif reparacion.estado_reparacion == "En reparación" %}
+
+                            <span class="badge bg-primary">
+
+                                {{ reparacion.estado_reparacion }}
+
+                            </span>
+
+                        {% elif reparacion.estado_reparacion == "Lista para entregar" %}
+
+                            <span class="badge bg-info">
+
+                                {{ reparacion.estado_reparacion }}
+
+                            </span>
+
+                        {% elif reparacion.estado_reparacion == "Entregada" %}
+
+                            <span class="badge bg-success">
+
+                                {{ reparacion.estado_reparacion }}
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger">
+
+                                {{ reparacion.estado_reparacion }}
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <form method="POST"
+                              action="{{ url_for('admin.cambiar_estado_reparacion', id_reparacion=reparacion.id_reparacion) }}">
+
+                            <div class="d-flex gap-2">
+
+                                <select
+                                    name="estado_reparacion"
+                                    class="form-select form-select-sm">
+
+                                    <option value="Recibido"
+                                    {% if reparacion.estado_reparacion=="Recibida" %}selected{% endif %}>
+                                        Recibido
+                                    </option>
+
+                                    <option value="En revisión"
+                                    {% if reparacion.estado_reparacion=="En revisión" %}selected{% endif %}>
+                                        En revisión
+                                    </option>
+
+                                    <option value="En reparación"
+                                    {% if reparacion.estado_reparacion=="En reparación" %}selected{% endif %}>
+                                        En reparación
+                                    </option>
+
+                                    <option value="Lista para entregar"
+                                    {% if reparacion.estado_reparacion=="Lista para entregar" %}selected{% endif %}>
+                                        Lista para entregar
+                                    </option>
+
+                                    <option value="Entregada"
+                                    {% if reparacion.estado_reparacion=="Entregada" %}selected{% endif %}>
+                                        Entregada
+                                    </option>
+
+                                    <option value="Cancelada"
+                                    {% if reparacion.estado_reparacion=="Cancelada" %}selected{% endif %}>
+                                        Cancelada
+                                    </option>
+
+                                </select>
+
+                                <button class="btn btn-red btn-sm">
+
+                                    Guardar
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <div class="alert alert-info">
+
+            No hay reparaciones registradas.
+
+        </div>
+
+        {% endif %}
+        <div class="d-grid mt-3">
+
+            <a href="{{ url_for('admin.agregar_reparacion') }}"
+               class="btn btn-red btn-lg">
+
+                <i class="bi bi-plus-lg"></i>
+
+                Agregar reparación
+
+            </a>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

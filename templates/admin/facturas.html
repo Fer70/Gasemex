@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+
+{% block title %}Facturas{% endblock %}
+
+{% block content %}
+
+{% if facturas %}
+
+    <div class="card shadow-sm mb-4">
+
+        <div class="card-header bg-dark text-white">
+
+            <h5 class="mb-0">
+                Facturas
+            </h5>
+
+        </div>
+
+        <div class="card-body table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>RFC</th>
+
+                        <th>Razón social</th>
+
+                        <th>Código postal</th>
+
+                        <th>Régimen</th>
+
+                        <th>Uso CFDI</th>
+
+                        <th>Correo</th>
+
+                        <th>Fecha de solicitud</th>
+
+                        <th>Pedido ID</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for factura in facturas %}
+
+                    <tr>
+
+                        <td>{{ factura.id_factura }}</td>   
+                        <td>{{ factura.rfc }}</td>   
+                        <td>{{ factura.razon_social }}</td>    
+                        <td>{{ factura.codigo_postal }}</td>   
+                        <td>{{ factura.regimen_fiscal }}</td>   
+                        <td>{{ factura.uso_cfdi }}</td>   
+                        <td>{{ factura.correo }}</td>    
+                        <td>{{ factura.fecha_factura }}</td>    
+                        <td>{{ factura.id_pedido }}</td>   
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% else %}
+    <p>No hay facturas solicitadas.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Iniciar Sesión{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="card shadow-lg border-0">
+
+                <div class="card-header bg-danger text-white text-center">
+                    <h3>Iniciar Sesión</h3>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form method="POST" action="{{ url_for('auth.login') }}">
+
+                        <div class="mb-3">
+                            <label class="form-label">Correo Electrónico</label>
+                            <input type="email" class="form-control" name="email" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" name="password" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-danger w-100">Entrar</button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

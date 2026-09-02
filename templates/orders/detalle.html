@@ -1,0 +1,399 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle del pedido{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h1>
+                 Pedido #{{ pedido.id_pedido }}
+            </h1>
+
+            <p class="text-muted mb-0">
+                Realizado el
+                {{ pedido.fecha_pedido.strftime('%d/%m/%Y %H:%M') }}
+            </p>
+
+        </div>
+
+        <a href="{{ url_for('orders.index') }}"
+           class="btn btn-outline-secondary">
+
+            <i class="bi bi-arrow-left"></i>
+
+            Volver
+
+        </a>
+
+    </div>
+
+    <div class="row">
+
+        <!-- Información del pedido -->
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-header bg-dark text-white">
+
+                    Información del pedido
+
+                </div>
+
+                <div class="card-body">
+
+                    <p>
+                        <strong>Estado:</strong><br>
+
+                        {% if pedido.estado_pedido == "Pendiente de pago" %}
+                            <span class="badge bg-warning text-dark">
+                                {{ pedido.estado_pedido }}
+                            </span>
+
+                        {% elif pedido.estado_pedido == "En preparación" %}
+                            <span class="badge bg-info">
+                                {{ pedido.estado_pedido }}
+                            </span>
+
+                        {% elif pedido.estado_pedido == "Enviado" %}
+                            <span class="badge bg-primary">
+                                {{ pedido.estado_pedido }}
+                            </span>
+
+                        {% elif pedido.estado_pedido == "Entregado" %}
+                            <span class="badge bg-success">
+                                {{ pedido.estado_pedido }}
+                            </span>
+
+                        {% else %}
+                            <span class="badge bg-danger">
+                                {{ pedido.estado_pedido }}
+                            </span>
+                        {% endif %}
+
+                    </p>
+
+                    <hr>
+
+                    <p>
+
+                        <strong>Dirección</strong><br>
+
+                        {{ pedido.direccion_envio }}
+
+                    </p>
+
+                    <hr>
+
+                    <h4 class="text-danger">
+
+                        Total:
+                        ${{ "%.2f"|format(pedido.total) }}
+
+                    </h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Información del pago -->
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-header bg-dark text-white">
+
+                    Pago
+
+                </div>
+
+                <div class="card-body">
+
+                    {% if pago %}
+
+                        <p>
+
+                            <strong>Método</strong><br>
+
+                            {{ pago.metodo_pago }}
+
+                        </p>
+
+                        <hr>
+
+                        <p>
+
+                            <strong>Estado</strong><br>
+
+                            {% if pago.estado_pago == "Aprobado" %}
+
+                                <span class="badge bg-success">
+
+                                    {{ pago.estado_pago }}
+
+                                </span>
+
+                            {% elif pago.estado_pago == "Pendiente" %}
+
+                                <span class="badge bg-warning text-dark">
+
+                                    {{  pago.estado_pago }}
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-danger">
+
+                                    {{ pago.estado_pago }}
+
+                                </span>
+
+                            {% endif %}
+
+                        </p>
+
+                        <hr>
+
+                        <p>
+
+                            <strong>ID Transacción</strong><br>
+
+                            {{ pago.id_transaccion or "Pendiente" }}
+
+                        </p>
+
+                        <hr>
+
+                        <p>
+
+                            <strong>Fecha de pago</strong><br>
+
+                            {% if pago.fecha_pago %}
+
+                                {{ pago.fecha_pago.strftime('%d/%m/%Y %H:%M') }}
+
+                            {% else %}
+
+                                Pendiente
+
+                            {% endif %}
+
+                        </p>
+
+                    {% else %}
+
+                        <p class="text-muted">
+
+                            Aún no existe información del pago.
+
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Resumen -->
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-header bg-dark text-white">
+
+                    Resumen
+
+                </div>
+
+                <div class="card-body">
+                     <th colspan="4" class="text-end">
+
+                                Monto
+
+                            </th>
+                    <h2 class="text-danger">
+
+                        ${{ "%.2f"|format(pedido.total) }}
+
+                    </h2>
+                     <th colspan="4" class="text-end">
+
+                                Descuento
+
+                            </th>
+                     <h2 class="text-danger">
+
+                        ${{ "%.2f"|format(pedido.puntos_usados) }}
+
+                    </h2>
+                     <th colspan="4" class="text-end">
+
+                                Total 
+
+                            </th>
+                     <h2 class="text-danger">
+
+                        ${{ "%.2f"|format(pedido.total - pedido.puntos_usados) }}
+
+                    </h2>
+                     <th colspan="4" class="text-end">
+
+                                Puntos generados
+
+                            </th>
+                        <h2 class="text-danger">
+
+                        ${{ "%.2f"|format(pedido.puntos_generado) }}
+
+                    </h2>
+
+
+
+                    <p class="text-muted">
+
+                        {{ detalles|length }} producto(s)
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Productos -->
+
+    <div class="card shadow-sm">
+
+        <div class="card-header bg-dark text-white">
+
+            Productos comprados
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Imagen</th>
+
+                            <th>Producto</th>
+
+                            <th>Cantidad</th>
+
+                            <th>Precio</th>
+
+                            <th>Subtotal</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    {% for producto, detalle, precio in detalles %}
+
+                        <tr>
+
+                            <td width="90">
+
+                                <img
+                                    src="{{ url_for('static', filename='uploads/products/' ~ producto.imagen) }}"
+                                    class="img-fluid rounded"
+                                    style="max-height:70px;">
+
+                            </td>
+
+                            <td>
+
+                                {{ producto.nombre_producto }}
+
+                            </td>
+
+                            <td>
+
+                                {{ detalle }}
+
+                            </td>
+
+                            <td>
+
+                                ${{ "%.2f"|format(precio) }}
+                            </td>
+
+                            <td>
+
+                                <strong>
+
+                                ${{ "%.2f"|format(detalle * precio) }}
+
+                                </strong>
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                    <tfoot>
+
+                        <tr>
+
+                            <th colspan="4" class="text-end">
+
+                                Total
+
+                            </th>
+
+                            <th class="text-danger">
+
+                                ${{ "%.2f"|format(pedido.total) }}
+
+                            </th>
+                             <th colspan="4" class="text-end">
+
+                                Total con puntos
+
+                            </th>
+                            <th class="text-danger">
+                                ${{ "%.2f"|format(pedido.total - pedido.puntos_usados) }}
+                            </th>
+
+                        </tr>
+
+                    </tfoot>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

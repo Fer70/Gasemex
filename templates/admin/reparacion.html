@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Agregar reparación{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm mx-auto" style="max-width: 700px;">
+
+        <div class="card-header bg-dark text-white">
+            <h3 class="mb-0">Agregar reparación</h3>
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST">
+
+               <div class="mb-3">
+                     <label class="form-label">Cliente</label>
+
+                    <select name="id_cliente" class="form-select" required>
+                         <option value="">Selecciona un cliente</option>
+
+                    {% for cliente in clientes %}
+                         <option value="{{ cliente.id_usuario }}">
+                        {{ cliente.nombre_usuario }}
+                        </option>
+                {% endfor %}
+                 </select>
+            </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Equipo</label>
+                    <input type="text" name="equipo" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Descripción del problema</label>
+                    <textarea name="descripcion" class="form-control" rows="5" required></textarea>
+                </div>
+
+                <div class="d-grid">
+                    <button class="btn btn-red btn-lg">
+                        Guardar reparación
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

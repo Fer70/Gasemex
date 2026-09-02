@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+
+{% block title %}
+Solicitar factura
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<div class="card shadow-sm mx-auto" style="max-width:700px;">
+
+<div class="card-header bg-dark text-white">
+
+<h3>
+
+Solicitud de factura
+
+</h3>
+
+</div>
+
+<div class="card-body">
+
+<p>
+
+Pedido:
+
+<strong>
+
+#{{ pedido.id_pedido }}
+
+</strong>
+
+</p>
+
+<p>
+
+Total:
+
+<strong>
+
+${{ "%.2f"|format(pedido.total) }}
+
+</strong>
+
+</p>
+
+<hr>
+
+<form
+method="POST"
+action="{{ url_for('orders.guardar_factura', id_pedido=pedido.id_pedido) }}">
+
+<div class="mb-3">
+
+<label class="form-label">
+
+RFC
+
+</label>
+
+<input
+type="text"
+name="rfc"
+maxlength="13"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Razón social
+
+</label>
+
+<input
+type="text"
+name="razon_social"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Código Postal
+
+</label>
+
+<input
+type="text"
+name="codigo_postal"
+class="form-control"
+required>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+
+Régimen fiscal
+
+</label>
+
+<select
+name="regimen"
+class="form-select"
+required>
+
+<option value="">
+Selecciona...
+</option>
+
+<option value="601">
+601 General de Ley Personas Morales
+</option>
+
+<option value="603">
+603 Personas Morales con Fines no Lucrativos
+</option>
+
+<option value="605">
+605 Sueldos y Salarios
+</option>
+
+<option value="606">
+606 Arrendamiento
+</option>
+
+<option value="612">
+612 Personas Físicas con Actividades Empresariales
+</option>
+
+<option value="621">
+621 Incorporación Fiscal
+</option>
+
+<option value="626">
+626 Régimen Simplificado de Confianza
+</option>
+
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Uso CFDI
+
+</label>
+
+<select
+name="uso_cfdi"
+class="form-select"
+required>
+
+<option value="">
+Selecciona...
+</option>
+
+<option value="G01">
+G01 Adquisición de mercancías
+</option>
+
+<option value="G03">
+G03 Gastos en general
+</option>
+
+<option value="S01">
+S01 Sin efectos fiscales
+</option>
+
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Correo electrónico
+
+</label>
+
+<input
+type="email"
+name="correo"
+class="form-control"
+required>
+
+</div>
+
+<div class="d-grid">
+
+<button
+class="btn btn-red btn-lg">
+
+<i class="bi bi-send"></i>
+
+Enviar solicitud
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+
+    <h1>
+        🛒 Checkout
+    </h1>
+
+    <p class="lead">
+        Revisa tu pedido antes de finalizar la compra.
+    </p>
+
+    {% include 'products/carrito.html' %}
+    <div class="d-flex justify-content-end mt-4">
+
+        <a href="{{ url_for('products.carrito') }}"
+           class="btn btn-outline-secondary me-2">
+
+            ⬅️ Volver al carrito
+
+        </a>
+
+        <a href="{{ url_for('orders.confirmar_pedido') }}"
+           class="btn btn-orange">
+
+            Finalizar Compra 🛒
+
+        </a>    
+    </div>
+</div>
+{% endblock %}

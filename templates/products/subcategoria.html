@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+    {{ categoria }} - {{ subcategoria_activa|default('Productos') }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h1 class="mb-1">
+                {{ subcategoria_activa|default(categoria) }}
+            </h1>
+
+            <p class="text-muted mb-0">
+                Productos disponibles 
+            </p>
+        </div>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('products.categoria', nombre=categoria) }}"
+           class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i>
+            Volver a secciones
+        </a>
+        {% else %}
+        <a href="{{ url_for('home.inicio') }}"
+           class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i>
+            Volver a inicio
+        </a>
+        {% endif %}
+
+    </div>
+
+    <div class="row">
+
+        {% for producto in productos %}
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card h-100 shadow-sm product-card">
+
+                <img
+                    src="{{ url_for('static', filename='uploads/products/' ~ (producto.imagen or 'default-product.png')) }}"
+                    class="card-img-top product-image"
+                    alt="{{ producto.nombre_producto }}">
+
+                <div class="card-body d-flex flex-column">
+
+                    <h5 class="card-title">
+                        {{ producto.nombre_producto }}
+                    </h5>
+
+                    <button
+                        class="btn btn-outline-secondary btn-sm mb-3"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#descripcion{{ producto.id_producto }}">
+
+                        <i class="bi bi-file-text"></i>
+                        Ver descripción
+
+                    </button>
+
+                    <div
+                        class="collapse mb-3"
+                        id="descripcion{{ producto.id_producto }}">
+
+                        <p class="card-text text-muted">
+                            {{ producto.descripcion_producto }}
+                        </p>
+
+                    </div>
+
+                    <div class="mt-auto">
+
+                        <h4 class="text-danger fw-bold">
+                            ${{ producto.precio }}
+                        </h4>
+
+                        {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('products.agregar_carrito', id_producto=producto.id_producto) }}"
+                           class="btn btn-red w-100">
+
+                            <i class="bi bi-cart-plus"></i>
+                            Agregar al carrito
+
+                        </a>
+                        {% else %}
+                        Inicia sesión para agregar al carrito.
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <div class="col-12">
+
+            <div class="alert alert-info text-center">
+
+                No hay productos disponibles en esta sección.
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

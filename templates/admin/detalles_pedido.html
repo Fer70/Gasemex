@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Detalles del pedido{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm mb-4">   
+    <div class="card-header bg-dark text-white">
+        Detalles del pedido #{{ pedido.id_pedido }}
+    </div>
+
+    <div class="card-body table-responsive">
+
+        <table class="table table-hover align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>Producto</th>
+
+                    <th>Cantidad</th>
+
+                    <th>Precio unitario</th>
+
+                    <th>Subtotal</th>
+                    <th>Puntos usados</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for detalle in detalles %}
+
+                <tr>
+
+                    <td>{{ detalle.producto.nombre_producto }}</td>
+
+                    <td>{{ detalle.cantidad }}</td>
+
+                    <td>${{ "%.2f"|format(detalle.precio_unitario) }}</td>
+
+                    <td>${{ "%.2f"|format(detalle.cantidad * detalle.precio_unitario) }}</td>
+                    <td>{{ pedido.puntos_usados }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+            <address>
+                <strong>Nombre del cliente:</strong> {{ cliente.nombre_usuario }}<br>
+                <strong>Dirección de envío:</strong> {{ pedido.direccion_envio }}<br>
+            </address>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                    <td><strong>${{ "%.2f"|format(pedido.total) }}</strong></td>
+                </tr>
+
+        </table>
+</div>
+{% endblock %}

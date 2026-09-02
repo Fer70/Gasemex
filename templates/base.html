@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+            Sistema de Pedidos GASEMEX
+        {% endblock %}
+    </title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- CSS propio -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar shadow-sm">
+
+        <div class="container">
+
+            <a class="navbar-brand d-flex align-items-center"
+               href="{% if current_user.is_authenticated %}{{ url_for('role_views.index') }}{% else %}/{% endif %}">
+
+                <img
+                    src="{{ url_for('static', filename='uploads/logo_gas.png') }}"
+                    alt="Logo"
+                    class="navbar-logo">
+
+            </a>
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+            {% if not current_user.is_authenticated %}
+            <div class="d-flex align-items-center">
+
+                <a href="{{ url_for('auth.login') }}"
+                   class="btn btn-danger me-2">
+
+                    Iniciar Sesión
+
+                </a>
+
+                <a href="{{ url_for('auth.register') }}"
+                   class="btn btn-outline-danger">
+
+                    Crear cuenta
+
+                </a>
+
+            </div>
+            {% endif %}
+
+            <div
+                class="collapse navbar-collapse"
+                id="navbarNav">
+
+                <ul class="navbar-nav ms-auto align-items-center">
+
+                    {% if current_user.is_authenticated %}
+
+                    <!-- PANEL -->
+
+                    <li class="nav-item me-3">
+
+                        <a
+                            href="{{ url_for('role_views.index') }}"
+                            class="nav-link">
+
+                            <i class="bi bi-house-door-fill"></i>
+                            Panel
+
+                        </a>
+
+                    </li>
+
+                    <!-- CARRITO -->
+                    {% if current_user.rol == 'cliente' %}
+                    <li class="nav-item me-3">
+
+                        <a
+                            href="{{ url_for('products.carrito') }}"
+                            class="nav-link position-relative">
+
+                            <i class="bi bi-cart-fill fs-5"></i>
+
+                            {% if carrito_count|default(0) > 0 %}
+
+                            <span class="cart-badge">
+
+                                {{ carrito_count }}
+
+                            </span>
+
+                            {% endif %}
+
+                        </a>
+
+                    </li>
+                    {% endif %}
+
+                    <!-- PERFIL -->
+
+                    <li class="nav-item me-3">
+
+                        <a
+                            href="{{ url_for('profile.editar') }}"
+                            class="nav-link">
+
+                            <i class="bi bi-person-circle"></i>
+                            Perfil
+
+                        </a>
+
+                    </li>
+
+                    <!-- CERRAR SESIÓN -->
+
+                    <li class="nav-item">
+
+                        <a
+                            href="{{ url_for('auth.logout') }}"
+                            class="btn btn-outline-light">
+
+                            <i class="bi bi-box-arrow-right"></i>
+                            Cerrar sesión
+
+                        </a>
+
+                    </li>
+
+                    {% endif %}
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <!-- FLASH MESSAGES -->
+
+    <div class="container mt-3">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="alert alert-{{ category }} alert-dismissible fade show">
+
+                        {{ message }}
+
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert">
+                        </button>
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+    </div>
+
+    <!-- CONTENIDO -->
+
+    <main class="container-fluid">
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+    <!-- FOOTER -->
+
+    <footer class="footer mt-5">
+
+        <div class="container text-center">
+
+            <small>
+
+                © 2026 GASEMEX · Sistema de pedidos
+
+            </small>
+
+        </div>
+        <a href="{{ url_for('home.privacidad') }}">
+                Aviso de Privacidad
+        </a>
+
+    </footer>
+
+    <!-- Bootstrap JS -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+
+</html>

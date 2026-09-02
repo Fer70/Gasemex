@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+
+{% block title %}Panel{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <!-- Encabezado -->
+    <div class="row align-items-center mb-5">
+
+        <div class="col-md-8">
+
+            <h1 class="page-title">
+                Bienvenido, {{ current_user.nombre_usuario }}
+            </h1>
+
+            <p class="lead text-muted">
+                Gestiona pedidos, consulta productos y da seguimiento a tus servicios.
+            </p>
+
+        </div>
+
+        <div class="col-md-4 text-end">
+        <div class="text-center">
+            <img
+                src="{{ url_for('static', filename='uploads/logo_gas.png') }}"
+                alt="Logo"
+                class="dashboard-logo">
+        <p class = "mt-3">
+            Distribuior autorizado
+        </p>
+        </div>
+        </div>
+
+    </div>
+
+    <!-- Estadísticas -->
+    <div class="row mb-4">
+
+        <div class="col-md-12">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body text-center">
+
+                    <i class="bi bi-coin dashboard-icon"></i>
+
+                    <h5>Puntos totales disponibles</h5>
+
+                    <h1 class="fw-bold text-danger">
+                        {{ current_user.puntos }}
+                    </h1>
+
+                    <hr>
+
+                    <small class="text-muted">
+
+                        Obten puntos por cada compra que realices. Usa tus puntos para descuentos en toda la tienda.
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Accesos principales -->
+    <div class="row g-4">
+
+        <!-- Catálogo -->
+        <div class="col-md-3">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body text-center">
+
+                    <i class="bi bi-box-seam dashboard-icon"></i>
+
+                    <h5>Catálogo</h5>
+
+                    <a href="{{ url_for('products.index') }}"
+                       class="btn btn-red">
+
+                        Ver catálogo
+
+                    </a>
+
+                    <hr>
+
+                    <small class="text-muted">
+                        Explora nuestros productos disponibles.
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Mis pedidos -->
+        <div class="col-md-3">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body text-center">
+
+                    <i class="bi bi-receipt dashboard-icon"></i>
+
+                    <h5>Mis pedidos</h5>
+
+                    <a href="{{ url_for('orders.index') }}"
+                       class="btn btn-red">
+
+                        Ver pedidos
+
+                    </a>
+
+                    <hr>
+
+                    <small class="text-muted">
+                        Consulta tu historial y estado de pedidos.
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Perfil -->
+        <div class="col-md-3">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body text-center">
+
+                    <i class="bi bi-person-circle dashboard-icon"></i>
+
+                    <h5>Mi Perfil</h5>
+
+                    <a href="{{ url_for('profile.editar') }}"
+                       class="btn btn-red">
+
+                        Ver perfil
+
+                    </a>
+
+                    <hr>
+
+                    <small class="text-muted">
+                        Actualiza tus datos y preferencias.
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Reparaciones -->
+        <div class="col-md-3">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body text-center">
+
+                    <i class="bi bi-tools dashboard-icon"></i>
+
+                    <h5>Reparaciones</h5>
+
+                    <a href="{{url_for('orders.reparaciones') }}"
+                       class="btn btn-red">
+
+                        Consultar
+
+                    </a>
+
+                    <hr>
+
+                    <small class="text-muted">
+                        Da seguimiento a tus equipos en servicio.
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Sección secundaria -->
+    <div class="row g-4 mt-2">
+
+        <!-- Ofertas -->
+        <div class="col-md-6">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body text-center">
+
+                    <i class="bi bi-tags dashboard-icon"></i>
+
+                    <h5>Promociones y ofertas</h5>
+
+                    <a href="#"
+                       class="btn btn-outline-danger">
+
+                        Ver ofertas
+
+                    </a>
+
+                    <hr>
+
+                    <small class="text-muted">
+                        Descubre promociones vigentes y descuentos especiales.
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Contacto -->
+        <div class="col-md-6">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body text-center">
+
+                    <i class="bi bi-headset dashboard-icon"></i>
+
+                    <h5>Contacto</h5>
+
+                    <a href="{{ url_for ('home.contacto')}}"
+                       class="btn btn-outline-danger">
+
+                        Contáctanos
+
+                    </a>
+
+                    <hr>
+
+                    <small class="text-muted">
+                        Atención a clientes, dudas, cotizaciones y sucursales.
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

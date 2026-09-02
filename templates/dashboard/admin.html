@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block title %}Panel de administración{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h1 class="page-title mb-4">
+        Panel de administración
+    </h1>
+
+    <div class="row g-4">
+
+        <!-- Pedidos -->
+        <div class="col-md-4">
+
+            <div class="card dashboard-card text-center h-100">
+
+                <div class="card-body">
+
+                    <i class="bi bi-box-seam dashboard-icon"></i>
+
+                    <h5>Pedidos recibidos</h5>
+
+                    <h2>{{ pedidos }}</h2>
+
+                    <div class="mt-3">
+
+                        <a href="{{ url_for('admin.pedidos') }}"
+                           class="btn btn-red">
+
+                            Ver pedidos
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Clientes -->
+        <div class="col-md-4">
+
+            <div class="card dashboard-card text-center h-100">
+
+                <div class="card-body">
+
+                    <i class="bi bi-people dashboard-icon"></i>
+
+                    <h5>Clientes</h5>
+
+                    <h2>{{ clientes }}</h2>
+
+                    <div class="mt-3">
+
+                        <a href="{{ url_for('admin.clientes') }}"
+                           class="btn btn-red">
+
+                            Ver clientes
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Reparaciones -->
+        <div class="col-md-4">
+
+            <div class="card dashboard-card text-center h-100">
+
+                <div class="card-body">
+
+                    <i class="bi bi-tools dashboard-icon"></i>
+
+                    <h5>Reparaciones</h5>
+
+                    <h2>{{ reparaciones }}</h2>
+
+                    <div class="mt-3">
+
+                        <a href="{{ url_for('admin.reparaciones') }}"
+                           class="btn btn-red">
+
+                            Ver reparaciones
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+         <!-- Facturas -->
+        <div class="col-md-4">
+
+            <div class="card dashboard-card text-center h-100">
+
+                <div class="card-body">
+
+                    <i class="bi bi-people dashboard-icon"></i>
+
+                    <h5>Facturas solicitadas</h5>
+
+                    <h2>{{ facturas }}</h2>
+
+                    <div class="mt-3">
+
+                        <a href="{{ url_for('admin.facturas') }}"
+                           class="btn btn-red">
+
+                            Ver facturas solicitadas
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

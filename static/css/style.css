@@ -1,0 +1,373 @@
+/* ===== GENERAL ===== */
+
+body {
+    background-color: #f5f5f5;
+    font-family: 'Inter', sans-serif;
+}
+.codigo, .datos {
+    font-family: 'Roboto Mono', monospace;
+}
+.pedidos-container {
+    font-family: IBM PLex Sans, sans-serif;
+}
+/* ===== NAVBAR ===== */
+
+
+/* ===== TARJETAS ===== */
+
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: #c62828;
+    color: white;
+    font-weight: bold;
+}
+
+/* ===== BOTONES ===== */
+
+.btn-danger {
+    background-color: #c62828;
+    border-color: #c62828;
+    font-weight: 600;
+}
+
+.btn-danger:hover {
+    background-color: #b71c1c;
+    border-color: #b71c1c;
+}
+
+/* ===== FORMULARIOS ===== */
+
+.form-control:focus {
+    border-color: #c62828;
+    box-shadow: 0 0 0 0.2rem rgba(198, 40, 40, 0.25);
+}
+
+/* ===== ALERTAS ===== */
+
+.alert {
+    border-radius: 10px;
+}
+
+/* ===== CONTENEDOR DE LOGIN/REGISTER ===== */
+
+.auth-card {
+    max-width: 550px;
+    margin: auto;
+}
+
+/* ===== TÍTULOS ===== */
+
+.page-title {
+    color: #c62828;
+    font-weight: bold;
+}
+
+/* ===== TABLAS ===== */
+
+.table thead {
+    background-color: #c62828;
+    color: white;
+}
+
+.hero-section {
+    padding: 80px 0;
+}
+
+.min-vh-75 {
+    min-height: 75vh;
+}
+
+.hero-section h1 {
+    line-height: 1.2;
+}
+
+.hero-section p {
+    color: #555;
+}
+
+/* ===== HERO IMAGE (más grande) ===== */
+.hero-section .col-lg-6.text-center img {
+    width: 60%;
+    max-width: 560px;
+    height: auto;
+}
+/* Botón naranja principal */
+
+.btn-orange {
+    background-color: #ff6f00;
+    border-color: #ff6f00;
+    color: white;
+    font-weight: 600;
+}
+
+.btn-orange:hover {
+    background-color: #e65100;
+    border-color: #e65100;
+    color: white;
+}
+.btn-blue {
+    background-color: #061b94;
+    border-color: #061b94;
+    color: white;
+    font-weight: 600;
+}
+.btn-white {
+    background-color: rgb(168, 139, 139);
+    border-color:   rgb(168, 139, 139);
+    color: #010238;
+    font-weight: 600;
+}
+.btn-bluey {
+    background-color: #01040f;
+    border-color: #01040f;
+    color: white;
+    font-weight: 600;
+}
+.logo-container {
+    display: inline-block;
+    padding: 7px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Tarjetas dashboard */
+
+.dashboard-carde {
+    border-radius: 15px;
+    transition: transform 0.2s ease;
+}
+
+.dashboard-card:hovere {
+    transform: translateY(-5px);
+}
+
+.dashboard-logo {
+    max-height: 80px;
+    text-align:center;
+    width: auto;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,.15));
+}
+.dashboard-logo img {
+    display:block;
+    margin:0 auto;
+}
+.logo-container {
+    display: inline-block;
+}
+
+.category-card {
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    text-align: center;
+    height: 100%;
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: all 0.25s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(255,111,0,0.25);
+}
+
+.category-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.category-card h4 {
+    color: #d32f2f;
+    font-weight: 700;
+}
+
+.category-card p {
+    color: #666;
+    margin-top: 10px;
+}
+.cart-product-image {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    padding: 4px;
+}
+
+.btn-orange {
+    background-color: #ff6f00;
+    color: white;
+    border: none;
+}
+
+.btn-orange:hover {
+    background-color: #e65100;
+    color: white;
+}
+.cart-badge {
+
+    position: absolute;
+    top: -5px;
+    right: -10px;
+
+    background: red;
+    color: white;
+
+    border-radius: 50%;
+
+    width: 22px;
+    height: 22px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 12px;
+    font-weight: bold;
+}
+.quantity-btn {
+
+    width: 35px;
+    height: 35px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: bold;
+}
+.dashboard-card {
+    border: none;
+    border-radius: 15px;
+    transition: all .25s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    height: 100%;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,.15);
+}
+
+.dashboard-icon {
+    font-size: 2.5rem;
+    color: #c62828;
+    margin-bottom: 15px;
+}
+
+.btn-red {
+    background-color: #c62828;
+    color: white;
+    border: none;
+}
+
+.btn-red:hover {
+    background-color: #a61f1f;
+    color: white;
+}
+
+.page-title {
+    font-weight: 700;
+    color: #222;
+}
+.custom-navbar {
+    background-color: #b71c1c;
+    min-height: 70px;
+}
+
+.navbar-logo {
+    height: 40px;
+    width: auto;
+}
+
+.navbar-brand {
+    color: white !important;
+    font-size: 1.3rem;
+}
+
+.nav-link {
+    font-weight: 500;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -12px;
+
+    min-width: 20px;
+    height: 20px;
+
+    background-color: white;
+    color: #b71c1c;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.footer {
+    padding: 20px 0;
+    margin-top: 50px;
+
+    border-top: 1px solid #e5e5e5;
+
+    color: #777;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+.points-card {
+    border: none;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    background: linear-gradient(135deg, #e7052b, #ffffff);
+}
+
+.points-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15) !important;
+}
+
+.points-icon {
+    font-size: 5rem;
+    line-height: 1;
+    animation: float 2.5s ease-in-out infinite;
+}
+
+.points-card h3 {
+    font-size: 2rem;
+}
+
+.points-card p {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+.card-body {
+    padding: 1.5rem;
+    background-color: linear-gradient(135deg, #eb0404, #f8f9fa);
+}

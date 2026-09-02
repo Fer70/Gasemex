@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block title %}Registro{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="card shadow-lg border-0">
+
+                <div class="card-header bg-danger text-white text-center">
+                    <h3>Crear Cuenta</h3>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form method="POST">
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Nombre de Usuario
+                            </label>
+
+                            <input type="text"
+                                   class="form-control"
+                                   name="nombre"
+                                   required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Correo Electrónico
+                            </label>
+
+                            <input type="email"
+                                   class="form-control"
+                                   name="email"
+                                   required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Teléfono
+                            </label>
+
+                            <input type="tel"
+                                   class="form-control"
+                                   name="telefono"
+                                   pattern="[0-9]{10}"
+                                   required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Contraseña
+                            </label>
+
+                            <input type="password"
+                                   class="form-control"
+                                   name="password"
+                                   required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Confirmar Contraseña
+                            </label>
+
+                            <input type="password"
+                                   class="form-control"
+                                   name="confirm_password"
+                                   required>
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-danger w-100">
+                            Registrarse
+                        </button>
+
+                        <div class="mt-4">
+
+    <div class="alert alert-light border">
+
+        <p class="mb-2">
+
+            <strong>Aviso de Privacidad:</strong>
+
+        </p>
+
+        <p class="small text-muted mb-3">
+
+            Gases, equipos y soldaduras de México utilizará tus
+            datos personales para crear y administrar tu cuenta,
+            procesar tus pedidos, realizar entregas, gestionar
+            facturación y administrar el programa de puntos.
+
+            Para conocer las finalidades, datos tratados, derechos
+            ARCO y demás información sobre el tratamiento de tus
+            datos personales, consulta nuestro
+
+            Propiedad intelectual: Todo el contenido del Sitio web,
+            incluyendo, entre otros, textos, gráficos, logotipos, imágenes y software, está
+            protegido por derechos de autor y otras leyes de propiedad intelectual y es
+            propiedad de Gases, equipos y soldaduras de México.
+
+            <a href="{{ url_for('home.privacidad') }}"
+               target="_blank">
+
+                Aviso de Privacidad Integral.
+
+            </a>
+
+        </p>
+
+
+        <div class="form-check">
+
+            <input
+                class="form-check-input"
+                type="checkbox"
+                id="privacidad"
+                name="privacidad"
+                value="1"
+                required
+            >
+
+            <label
+                class="form-check-label"
+                for="privacidad">
+
+                He leído el Aviso de Privacidad y conozco
+                el tratamiento de mis datos personales.
+
+            </label>
+
+        </div>
+
+    </div>
+
+</div>
+
+                    </form>
+                    
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

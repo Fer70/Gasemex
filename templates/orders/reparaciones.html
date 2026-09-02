@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+
+    <h1 class="page-title mb-4">
+        Reparaciones
+    </h1>
+    
+    {% if reparaciones %}
+        <div class="row">
+            {% for reparacion in reparaciones %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ reparacion.nombre_reparacion }}</h5>
+                            <p class="card-text">Fecha de reparación: {{ reparacion.fecha_reparacion }}</p>
+                            <p class="card-text">Estado: {{ reparacion.estado_reparacion }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No tienes reparaciones pendientes.</p>
+    {% endif %}
+    <div class="mt-4">
+        <a href="{{ url_for('role_views.index') }}" class="btn btn-secondary">Volver al panel</a>
+</div>
+{% endblock %}

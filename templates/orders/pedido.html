@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalles del Pedido{% endblock %}
+
+{% block content %}
+
+{%- for producto, cantidad in productos -%}
+
+    <div class="d-flex align-items-center mb-3">
+
+        <img
+        src="{{ url_for(
+            'static',
+            filename='uploads/productos/' ~ producto.imagen
+        ) }}"
+        class="cart-product-image">
+
+        <div class="ms-3">
+
+            <strong>
+                {{ producto.nombre }}
+            </strong>
+
+            <p>
+                Cantidad: {{ cantidad }}
+            </p>
+
+            <p>
+                Precio unitario: ${{ "%.2f"|format(producto.precio) }}
+            </p>
+
+            <p>
+                Subtotal: ${{ "%.2f"|format(producto.precio * cantidad) }}
+            </p>
+
+        </div>
+
+    </div>
+
+{%- endfor -%}
+{% endblock %
+}
