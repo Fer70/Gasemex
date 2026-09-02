@@ -11,6 +11,9 @@ from blueprints.role_views import admin_required
 from flask_mail import Message
 from extensions import mail
 import threading
+import os
+import resend
+
 
 admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
 
@@ -146,26 +149,29 @@ def cambiar_estado(id_pedido):
 
 
 def enviar_correo(email, nombre_usuario, id_pedido, estado_pedido):
-    msg = Message(
-        subject=f"Actualización de tu pedido #{id_pedido}",
-        sender=current_app.config["MAIL_USERNAME"],
-        recipients=[email]
-    )
+    resend.api_key = os.getenv("RESEND_API_KEY")
 
-    msg.body = f"""
-Hola {nombre_usuario},
+    resend.Emails.send({
+        "from": "Gases, Equipos y Soldaduras <actualizaciones@gasemex.shop>",
+        "to": [email],
+        "subject": f"Actualización de tu pedido #{id_pedido}",
+        "html": f"""
+        <p>Hola {nombre_usuario},</p>
 
-El estado de tu pedido #{id_pedido} ha sido actualizado.
+        <p>El estado de tu pedido <strong>#{id_pedido}</strong> ha sido actualizado.</p>
 
-Nuevo estado: {estado_pedido}
+        <p>
+            Nuevo estado: <strong>{estado_pedido}</strong>
+        </p>
 
-Gracias por tu compra.
+        <p>Gracias por tu compra.</p>
 
-Saludos,
-Gases, Equipos y Soldaduras
-"""
-
-    mail.send(msg)
+        <p>
+            Saludos,<br>
+            Gases, Equipos y Soldaduras
+        </p>
+        """
+    })
     
 
 @admin_bp.route("/reparacion/nueva", methods=["GET", "POST"])
