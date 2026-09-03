@@ -35,7 +35,7 @@
             <div class="card h-100 shadow-sm product-card">
 
                 <img
-                    src="{{ url_for('static', filename='uploads/products/' ~ (producto.imagen or 'default-product.png')) }}"
+                    src="{{ config['R2_PUBLIC_URL'] }}/products/{{ producto.imagen or 'default.png' }}"
                     class="card-img-top product-image"
                     alt="{{ producto.nombre_producto }}">
 
