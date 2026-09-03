@@ -18,15 +18,3 @@ def contacto():
 @home_bp.route("/privacidad")
 def privacidad():
     return render_template("privacy.html")
-
-@home_bp.route("/test-r2")
-def test_r2():
-    from utils.r2 import probar_r2
-
-    url = probar_r2()
-
-    return f"""
-        <h1>R2 funcionando</h1>
-        <p>Archivo creado:</p>
-        <a href="{url}" target="_blank">{url}</a>
-    """

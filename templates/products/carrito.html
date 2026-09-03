@@ -58,12 +58,10 @@
                             <div class="d-flex align-items-center">
 
                                 <img
-                                src="{{ url_for(
-                                    'static',
-                                    filename='uploads/products/' ~ item.imagen
-                                ) }}"
-                                class="cart-product-image"
-                                alt="{{item.nombre}}">
+                                    src="{{ config['R2_PUBLIC_URL'] }}/products/{{ item.imagen or 'default.png' }}"
+                                    class="img-thumbnail me-3"
+                                    style="width: 80px; height: 80px; object-fit: cover;"
+                                    alt="{{ item.nombre }}">
 
 
                                 <div class="ms-3">
