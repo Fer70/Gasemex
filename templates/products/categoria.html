@@ -2,19 +2,7 @@
 
 {% block content %}
 
-<form action="{{ url_for('products.buscar') }}" method="GET" class="d-flex">
-    <input 
-        type="search"
-        name="q"
-        class="form-control me-2"
-        placeholder="Buscar productos..."
-        value="{{ request.args.get('q', '') }}"
-    >
 
-    <button class="btn btn-primary" type="submit">
-        Buscar
-    </button>
-</form>
 <div class="container mt-4">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -67,7 +55,7 @@
             <div class="card h-100 shadow-sm product-card">
 
                 <img
-                    src="{{ url_for('static', filename='uploads/products/' ~ (producto.imagen or 'default-product.png')) }}"
+                    src="{{ config['R2_PUBLIC_URL'] }}/products/{{ producto.imagen or 'default.png' }}"
                     class="card-img-top product-image"
                     alt="{{ producto.nombre_producto }}">
 

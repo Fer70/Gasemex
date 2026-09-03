@@ -29,6 +29,10 @@ class Config:
     MAIL_USERNAME = os.getenv("MAIL_USERNAME")
     MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
 
+    R2_PUBLIC_URL = os.getenv("R2_PUBLIC_URL")
+    R2_BUCKET_NAME = os.getenv("R2_BUCKET_NAME")
+    R2_ACCOUNT_ID = os.getenv("R2_ACCOUNT_ID")
+
     SESSION_COOKIE_SECURE=True,
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE="Lax"

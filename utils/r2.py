@@ -1,5 +1,9 @@
 import os
 import boto3
+from dotenv import load_dotenv
+
+
+load_dotenv()  # Cargar variables de entorno desde el archivo .env
 
 R2_ACCOUNT_ID = os.getenv("R2_ACCOUNT_ID")
 R2_ACCESS_KEY_ID = os.getenv("R2_ACCESS_KEY_ID")
