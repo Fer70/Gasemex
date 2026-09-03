@@ -18,13 +18,3 @@ def contacto():
 @home_bp.route("/privacidad")
 def privacidad():
     return render_template("privacy.html")
-<<<<<<< HEAD
-=======
-
-
-    return f"""
-        <h1>R2 funcionando</h1>
-        <p>Archivo creado:</p>
-        <a href="{url}" target="_blank">{url}</a>
-    """
->>>>>>> 7b5c4a8e6f3588eff5b74a13385fbfcdaf753ae5
