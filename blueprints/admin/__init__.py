@@ -8,8 +8,6 @@ from alchemyClasses.Reparacion import Reparacion
 from alchemyClasses.Factura import Factura
 from datetime import datetime, timedelta
 from blueprints.role_views import admin_required
-from flask_mail import Message
-from extensions import mail
 import threading
 import os
 import resend

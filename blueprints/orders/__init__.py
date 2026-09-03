@@ -16,43 +16,44 @@ from datetime import datetime, timezone, timedelta
 from email_validator import validate_email, EmailNotValidError
 from decimal import Decimal
 import math
-from flask_mail import Message
-from extensions import mail
+import resend
+import threading
 
 orders_bp = Blueprint("orders", __name__, url_prefix="/orders")
 
-def enviar_correo(pedido, cliente):
-    if not cliente.email:
-        current_app.logger.warning(
-            f"El cliente {cliente.nombre_usuario} no tiene correo electrónico."
-        )
+def enviar_correo(email, nombre_cliente, id_cliente, estado_pedido, total, fecha_pedido):
+    if not email or not nombre_cliente:
         return
 
-    subject = f"Gracias por tu pedido #{pedido.id_pedido}"
-    body = (
-        f"Hola {cliente.nombre_usuario},\n\n"
-        f"Tu pedido #{pedido.id_pedido} ha sido realizado con éxito: "
-        f"{pedido.estado_pedido}.\n\n"
-        "Tu pedido será procesado y enviado a la dirección que proporcionaste a más tardar en 2 días hábiles.\n\n"
-        f"Ver detalle de tu pedido: {current_app.config['BASE_URL']}{url_for('orders.detalle_pedido', id_pedido=pedido.id_pedido)}\n\n"
-        "Gracias por comprar con nosotros.\n\n"
-        "Atentamente,\n"
-        "El equipo de GASEMEX"
-    )
+    api_key = current_app.config.get("RESEND_API_KEY")
+    if not api_key:
+        current_app.logger.error("No se encontró la clave de API de Resend.")
+        return
 
-    msg = Message(
-        subject=subject,
-        recipients=[cliente.email],
-        sender=current_app.config["MAIL_USERNAME"],
-        body=body
-    )
+    client = resend.Client(api_key)
+
+    subject = "Confirmación de Pedido - GASEMEX"
+    body = f"""
+    <p>Hola {nombre_cliente},</p>
+    <p>Gracias por tu compra. Tu pedido con ID {id_cliente} ha sido recibido y está en proceso.</p>
+    <p>Detalles del pedido:</p>
+    <ul>
+        <li>Total: ${float(total):.2f}</li>
+        <li>Estado: {estado_pedido}</li>
+        <li>Fecha: {fecha_pedido.strftime('%Y-%m-%d %H:%M:%S')}</li>
+    </ul>
+    <p>Gracias por elegirnos.</p>
+    """
 
     try:
-        mail.send(msg)
-    except Exception as e:
-        current_app.logger.error(
-            f"Error al enviar correo a {cliente.email}: {e}"
+        response = client.emails.send(
+            to=email,
+            subject=subject,
+            html=body
         )
+        current_app.logger.info(f"Correo enviado a {email}: {response}")
+    except Exception as e:
+        current_app.logger.error(f"Error al enviar correo a {email}: {e}")
 
 def crear_pedido_desde_checkout(
     checkout,
@@ -332,11 +333,22 @@ def validar_ubicacion():
         session.pop("carrito", None)
         session.pop("usar_puntos", None)
 
+        email = current_user.email
+        id_cliente = current_user.id_usuario
+        nombre_cliente = current_user.nombre_usuario
+        estado_pedido = pedido.estado_pedido
+        total = pedido.total
+        fecha_pedido = pedido.fecha_pedido
+
         flash(
             "Pedido pagado completamente con puntos. Un correo de confirmación ha sido enviado.",
             "success"
         )
-        enviar_correo(pedido, current_user)
+        def enviar_en_segundo_plano():
+                with current_app.app_context():
+                    enviar_correo(email, nombre_cliente, id_cliente, estado_pedido, total, fecha_pedido)
+        
+        threading.Thread(target=enviar_en_segundo_plano, daemon = True).start()
         return redirect(
             url_for(
                 "orders.detalle_pedido",
@@ -375,18 +387,29 @@ def validar_ubicacion():
 @orders_bp.route("/pago/exitoso")
 @login_required
 def pago_exitoso():
+    pedido=Pedido.query.filter_by(
+    id_usuario=current_user.id_usuario
+    ).order_by(Pedido.fecha_pedido.desc()).first(),
+    cliente=current_user
+    email = cliente.email
+    nombre_cliente = cliente.nombre_usuario
+    id_cliente = cliente.id_usuario
+    estado_pedido = pedido.estado_pedido
+    total = pedido.total
+    fecha_pedido = pedido.fecha_pedido
+
     session.pop("carrito", None)
 
     flash(
         "Pago recibido. Estamos confirmando tu pedido. Un correo de confirmación será enviado.",
         "success"
     )
-    enviar_correo(
-        pedido=Pedido.query.filter_by(
-            id_usuario=current_user.id_usuario
-        ).order_by(Pedido.fecha_pedido.desc()).first(),
-        cliente=current_user
-    )
+    def enviar_en_segundo_plano():
+        with current_app.app_context():
+            enviar_correo(email, nombre_cliente, id_cliente, estado_pedido, total, fecha_pedido)
+
+    threading.Thread(target=enviar_en_segundo_plano, daemon = True).start()
+
     return redirect(url_for("orders.index"))
 
 
