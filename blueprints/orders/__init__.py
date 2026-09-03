@@ -393,7 +393,7 @@ def validar_ubicacion():
 def pago_exitoso():
     pedido=Pedido.query.filter_by(
     id_usuario=current_user.id_usuario
-    ).order_by(Pedido.fecha_pedido.desc()).first(),
+    ).order_by(Pedido.fecha_pedido.desc()).first()
     cliente=current_user
     email = cliente.email
     nombre_cliente = cliente.nombre_usuario
