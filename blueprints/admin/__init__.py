@@ -150,7 +150,7 @@ def enviar_correo(email, nombre_usuario, id_pedido, estado_pedido):
     resend.api_key = os.getenv("RESEND_API_KEY")
 
     resend.Emails.send({
-        "from": "Gases, Equipos y Soldaduras <actualizaciones@gasemex.shop>",
+        "from": f"Gases, Equipos y Soldaduras <{os.getenv('MAIL_FROM')}>",
         "to": [email],
         "subject": f"Actualización de tu pedido #{id_pedido}",
         "html": f"""

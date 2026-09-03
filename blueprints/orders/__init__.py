@@ -32,7 +32,7 @@ def enviar_correo(email, nombre_cliente, id_cliente, id_pedido, estado_pedido, t
         return
 
     resend.Emails.send({
-            "from": "Gases, Equipos y Soldaduras <actualizaciones@gasemex.shop>",
+            "from": f"Gases, Equipos y Soldaduras <{os.getenv('MAIL_FROM')}>",
             "to": [email],
             "subject": f"Confirmación de pedido #{id_pedido}",
             "html": f"""
