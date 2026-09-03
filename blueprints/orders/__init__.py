@@ -347,8 +347,9 @@ def validar_ubicacion():
             "Pedido pagado completamente con puntos. Un correo de confirmación ha sido enviado.",
             "success"
         )
+        app = current_app._get_current_object()
         def enviar_en_segundo_plano():
-                with current_app.app_context():
+                with app.app_context():
                     enviar_correo(email, nombre_cliente, id_cliente, id_pedido, estado_pedido, total, fecha_pedido)
         
         threading.Thread(target=enviar_en_segundo_plano, daemon = True).start()
@@ -408,8 +409,9 @@ def pago_exitoso():
         "Pago recibido. Estamos confirmando tu pedido. Un correo de confirmación será enviado.",
         "success"
     )
+    app = current_app._get_current_object()
     def enviar_en_segundo_plano():
-        with current_app.app_context():
+        with app.app_context():
             enviar_correo(email, nombre_cliente, id_cliente, id_pedido, estado_pedido, total, fecha_pedido)
 
     threading.Thread(target=enviar_en_segundo_plano, daemon = True).start()
