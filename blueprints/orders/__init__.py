@@ -450,7 +450,7 @@ def webhook_mp():
 
     data = request.get_json(silent=True) or {}
 
-    data_id = request.args.get("data_id")
+    data_id = request.args.get("data.id")
 
     if not x_signature or not x_request_id or not data_id:
         return jsonify({
