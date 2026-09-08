@@ -545,10 +545,12 @@ def webhook_mp():
             "status": "invalid_external_reference"
         }), 200
 
-    checkout = db.session.get(
-        CheckoutPendiente,
-        id_checkout
-    )
+    checkout = (
+        db.session.query(CheckoutPendiente)
+        .filter_by(id_checkout=id_checkout)
+        .with_for_update()
+        .first()
+        )
     monto_esperado = round(float(checkout.monto), 2)
     monto_recibido = round(float(monto_pagado), 2)
 
