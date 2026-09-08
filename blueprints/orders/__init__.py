@@ -19,6 +19,8 @@ import math
 import resend
 import threading
 import os
+import hmac
+import hashlib
 
 orders_bp = Blueprint("orders", __name__, url_prefix="/orders")
 
@@ -377,8 +379,7 @@ def validar_ubicacion():
     db.session.commit()
 
     checkout_url = (
-        preference.get("sandbox_init_point")
-        or preference.get("init_point")
+        preference.get("init_point")
     )
 
     if not checkout_url:
@@ -442,7 +443,63 @@ def pago_fallido():
 @orders_bp.route("/webhook/mercadopago", methods=["POST"])
 def webhook_mp():
 
+    secret = current_app.config["MP_WEBHOOK_SECRET"]
+
+    x_signature = request.headers.get("x-signature")
+    x_request_id = request.headers.get("x-request-id")
+
     data = request.get_json(silent=True) or {}
+
+    data_id = None
+
+    if data.get("data"):
+        data_id = data["data"].get("id")
+
+    if not data_id:
+        data_id = data.get("id")
+
+    if not x_signature or not x_request_id or not data_id:
+        return jsonify({
+            "status": "invalid_signature_data"
+        }), 401
+
+    # Extraer ts y v1 de x-signature
+    parts = {}
+
+    for item in x_signature.split(","):
+        key, value = item.strip().split("=", 1)
+        parts[key] = value
+
+    ts = parts.get("ts")
+    v1 = parts.get("v1")
+
+    if not ts or not v1:
+        return jsonify({
+            "status": "invalid_signature"
+        }), 401
+
+    # Manifest requerido por Mercado Pago
+    manifest = (
+        f"id:{data_id};"
+        f"request-id:{x_request_id};"
+        f"ts:{ts};"
+    )
+
+    generated_signature = hmac.new(
+        secret.encode(),
+        manifest.encode(),
+        hashlib.sha256
+    ).hexdigest()
+
+    if not hmac.compare_digest(generated_signature, v1):
+        current_app.logger.warning(
+            "Firma inválida de Mercado Pago"
+        )
+
+        return jsonify({
+            "status": "invalid_signature"
+        }), 401
+
 
     tipo = data.get("type") or data.get("topic")
 
