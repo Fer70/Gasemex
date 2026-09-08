@@ -523,6 +523,13 @@ def webhook_mp():
         }), 200
 
     payment = payment_response.get("response", {})
+    monto_pagado = payment.get("transaction_amount")
+
+    if monto_pagado is None:
+        current_app.logger.warning(
+            "Mercado Pago no proporcionó transaction_amount"
+        )
+        return jsonify({"status": "no_transaction_amount"}), 200
 
     id_checkout = payment.get("external_reference")
 
@@ -542,6 +549,18 @@ def webhook_mp():
         CheckoutPendiente,
         id_checkout
     )
+    monto_esperado = round(float(checkout.monto), 2)
+    monto_recibido = round(float(monto_pagado), 2)
+
+    if monto_recibido != monto_esperado:
+        current_app.logger.warning(
+            f"Mismatch de monto en checkout {checkout.id_checkout}: "
+            f"esperado={monto_esperado}, recibido={monto_recibido}"
+        )
+
+        return jsonify({
+            "status": "amount_mismatch"
+        }), 200
 
     if not checkout:
         return jsonify({
