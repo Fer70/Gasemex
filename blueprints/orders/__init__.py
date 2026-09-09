@@ -59,6 +59,24 @@ def enviar_correo(email, nombre_cliente, id_cliente, id_pedido, estado_pedido, t
             </p>
             """
         })
+
+def enviar_correo_admin(nombre_cliente, id_cliente, total, fecha, id_pedido):
+    resend.api_key=os.getenv("RESEND_API_KEY")
+    if not resend.api_key:
+            current_app.logger.error("No se encontró la clave de API de Resend.")
+            return
+    resend.Emails.send({
+        "from": f"Receptor de pedidos <{os.getenv('MAIL_FROM')}>",
+                    "to": f"<{os.getenv('MAIL_ADMIN')}>",
+                    "subject": f"Pedido recibido! #{id_pedido}",
+                    "html": f"""
+                    <p> Hola admin <p>
+                    <p>El cliente {nombre_cliente}, con id: {id_cliente}</p>
+                    <p> Realizo el pedido {id_pedido}.<p>
+                    <p> El día {fecha}, por un total de: {total}.
+                    <p> Favor de checarlo lo antes posible."""
+            
+    })
 def crear_pedido_desde_checkout(
     checkout,
     metodo_pago,
@@ -414,6 +432,7 @@ def pago_exitoso():
     def enviar_en_segundo_plano():
         with app.app_context():
             enviar_correo(email, nombre_cliente, id_cliente, id_pedido, estado_pedido, total, fecha_pedido)
+            enviar_correo_admin(nombre_cliente, id_cliente, total, fecha_pedido, id_pedido)
 
     threading.Thread(target=enviar_en_segundo_plano, daemon = True).start()
 
