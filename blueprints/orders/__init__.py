@@ -67,13 +67,29 @@ def enviar_correo_admin(nombre_cliente, id_cliente, total, fecha, id_pedido):
             return
     resend.Emails.send({
         "from": f"Receptor de pedidos <{os.getenv('MAIL_FROM')}>",
-                    "to": f"<{os.getenv('MAIL_ADMIN')}>",
+                    "to": os.getenv('MAIL_ADMIN'),
                     "subject": f"Pedido recibido! #{id_pedido}",
                     "html": f"""
                     <p> Hola admin <p>
                     <p>El cliente {nombre_cliente}, con id: {id_cliente}</p>
                     <p> Realizo el pedido {id_pedido}.<p>
                     <p> El día {fecha}, por un total de: {total}.
+                    <p> Favor de checarlo lo antes posible."""
+            
+    })
+def enviar_correo_factura(nombre_cliente, id_pedido):
+    resend.api_key=os.getenv("RESEND_API_KEY")
+    if not resend.api_key:
+            current_app.logger.error("No se encontró la clave de API de Resend.")
+            return
+    resend.Emails.send({
+        "from": f"Receptor de pedidos <{os.getenv('MAIL_FROM')}>",
+                    "to": os.getenv('MAIL_ADMIN'),
+                    "subject": f"Solicitud de factura! #{id_pedido}",
+                    "html": f"""
+                    <p> Hola admin <p>
+                    <p>El cliente {nombre_cliente}, con id: {id_pedido}</p>
+                    <p> Solicito la factura del pedido {id_pedido}.<p>
                     <p> Favor de checarlo lo antes posible."""
             
     })
@@ -458,10 +474,37 @@ def pago_exitoso():
     )
     app = current_app._get_current_object()
     def enviar_en_segundo_plano():
-        with app.app_context():
-            enviar_correo(email, nombre_cliente, id_cliente, id_pedido, estado_pedido, total, fecha_pedido)
-            enviar_correo_admin(nombre_cliente, id_cliente, total, fecha_pedido, id_pedido)
-
+    
+                with app.app_context():
+    
+                    try:
+                        enviar_correo(
+                        email,
+                        nombre_cliente,
+                        id_cliente,
+                        id_pedido,
+                        estado_pedido,
+                        total,
+                        fecha_pedido
+                        )
+                    except Exception:
+                        app.logger.exception(
+                        "Error enviando correo al cliente"
+                        )
+    
+                    try:
+                        enviar_correo_admin(
+                        nombre_cliente,
+                        id_cliente,
+                        total,
+                        fecha_pedido,
+                        id_pedido
+                    )
+                    except Exception:
+                        app.logger.exception(
+                        "Error enviando correo al administrador"
+                    )
+                        
     threading.Thread(target=enviar_en_segundo_plano, daemon = True).start()
 
     return redirect(url_for("orders.index"))
@@ -725,6 +768,9 @@ def solicitar_factura(id_pedido):
 def guardar_factura(id_pedido):
 
     pedido = Pedido.query.get_or_404(id_pedido)
+    usuario = current_user
+    nombre_usuario = usuario.nombre_usuario
+    id_pedido = pedido.id_pedido
 
     if pedido.id_usuario != current_user.id_usuario:
         return redirect(url_for("orders.index"))
@@ -771,5 +817,13 @@ def guardar_factura(id_pedido):
     )
     pedido.factura = True
     db.session.commit()
+    app = current_app._get_current_object()
+    def enviar_correo_factura():
+        with app.context():
+            enviar_correo_factura(
+                nombre_usuario,
+                id_pedido
+            )
+    threading.Thread(target=enviar_correo_factura, daemon = True).start()
 
     return redirect(url_for("orders.index"))
