@@ -818,12 +818,12 @@ def guardar_factura(id_pedido):
     pedido.factura = True
     db.session.commit()
     app = current_app._get_current_object()
-    def enviar_correo_factura():
+    def enviar_correo_segundo_factura():
         with app.app_context():
             enviar_correo_factura(
                 nombre_usuario,
                 id_pedido
             )
-    threading.Thread(target=enviar_correo_factura, daemon = True).start()
+    threading.Thread(target=enviar_correo_segundo_factura, daemon = True).start()
 
     return redirect(url_for("orders.index"))
