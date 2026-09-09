@@ -819,7 +819,7 @@ def guardar_factura(id_pedido):
     db.session.commit()
     app = current_app._get_current_object()
     def enviar_correo_factura():
-        with app.context():
+        with app.app_context():
             enviar_correo_factura(
                 nombre_usuario,
                 id_pedido
