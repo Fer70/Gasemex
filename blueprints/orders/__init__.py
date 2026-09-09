@@ -370,7 +370,7 @@ def validar_ubicacion():
         app = current_app._get_current_object()
         def enviar_en_segundo_plano():
                 with app.app_context():
-                    enviar_correo(email, nombre_cliente, id_cliente, id_pedido, estado_pedido, total, fecha_pedido)
+                    enviar_correo(email, nombre_cliente, id_cliente, id_pedido, estado_pedido, total, fecha_pedido),
                     enviar_correo_admin(nombre_cliente, id_cliente, total, fecha_pedido, id_pedido)
         
         threading.Thread(target=enviar_en_segundo_plano, daemon = True).start()
