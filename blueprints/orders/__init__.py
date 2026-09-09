@@ -83,12 +83,12 @@ def enviar_correo_factura(nombre_cliente, id_pedido):
             current_app.logger.error("No se encontró la clave de API de Resend.")
             return
     resend.Emails.send({
-        "from": f"Receptor de pedidos <{os.getenv('MAIL_FROM')}>",
+        "from": f"Receptor de facturas <{os.getenv('MAIL_FROM')}>",
                     "to": os.getenv('MAIL_ADMIN'),
                     "subject": f"Solicitud de factura! #{id_pedido}",
                     "html": f"""
                     <p> Hola admin <p>
-                    <p>El cliente {nombre_cliente}, con id: {id_pedido}</p>
+                    <p>El cliente {nombre_cliente}</p>
                     <p> Solicito la factura del pedido {id_pedido}.<p>
                     <p> Favor de checarlo lo antes posible."""
             

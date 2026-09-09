@@ -61,7 +61,12 @@
                         <td>{{ factura.uso_cfdi }}</td>   
                         <td>{{ factura.correo }}</td>    
                         <td>{{ factura.fecha_factura }}</td>    
-                        <td>{{ factura.id_pedido }}</td>   
+                        <td>
+                            <a href="{{ url_for('admin.detalles_pedido', id_pedido=factura.id_pedido) }}"
+                               class="btn btn-primary btn-sm">
+                                {{ factura.id_pedido }}
+                            </a>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

@@ -23,8 +23,6 @@ def index():
     clientes = Usuario.query.filter_by(rol="cliente").count()
     reparaciones = Reparacion.query.count()
     facturas = Factura.query.count()
-    hola = pedidos + clientes + reparaciones + facturas
-    print("-------------------------------", hola)
     return render_template(
         "dashboard/admin.html",
         pedidos=pedidos,
@@ -143,7 +141,7 @@ def cambiar_estado(id_pedido):
     ).start()
 
     flash("Estado del pedido actualizado.", "success")
-    return redirect(url_for("admin.index"))
+    return redirect(url_for("admin.pedidos"))
 
 
 def enviar_correo(email, nombre_usuario, id_pedido, estado_pedido):
