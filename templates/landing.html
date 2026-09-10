@@ -109,9 +109,10 @@
                     <div class="card-body p-4">
 
                         <div class="mb-3">
-                    <img src="{{ url_for('static', filename='uploads/dur600.png') }}"
-                     alt="Electrodos"
-                     style="width: 70px; height: 70px; object-fit: contain;">
+                    <img
+                                src="{{ config['R2_PUBLIC_URL'] }}/products/{{ dur600.png or 'default.png' }}"
+                                class="cart-product-image"
+                                alt="Miau">
                     </div>
 
                         <h4 class="fw-bold">
@@ -148,10 +149,11 @@
                     <div class="card-body p-4">
 
                        <div class="mb-3">
-                    <img src="{{ url_for('static', filename='uploads/HARRIS.png') }}"
-                     alt="Electrodos"
-                     style="width: 70px; height: 70px; object-fit: contain;">
-                    </div>
+                    <img
+                                src="{{ config['R2_PUBLIC_URL'] }}/products/{{ HARRIS.png or 'default.png' }}"
+                                class="cart-product-image"
+                                alt="Miau">
+                    </div>  
 
                         <h4 class="fw-bold">
                             Microalambre
@@ -187,9 +189,10 @@
                     <div class="card-body p-4">
 
                         <div class="mb-3">
-                    <img src="{{ url_for('static', filename='uploads/pv700.png') }}"
-                     alt="Electrodos"
-                     style="width: 70px; height: 70px; object-fit: contain;">
+                     <img
+                                src="{{ config['R2_PUBLIC_URL'] }}/products/{{ pv700.png or 'default.png' }}"
+                                class="cart-product-image"
+                                alt="Miau">
                     </div>
 
                         <h4 class="fw-bold">
