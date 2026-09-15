@@ -1,0 +1,44 @@
+{% extends 'base.html' % %}
+
+{% block title %}Ofertas | GASEMEX{% endblock %}
+
+{% block content %}
+{% if productos|length == 0 %}
+    <div class="container mt-5">
+        <div class="alert alert-info text-center" role="alert">
+            <h4 class="alert-heading">¡No hay ofertas disponibles!</h4>
+            <p>Actualmente no hay productos en oferta. Por favor, vuelve más tarde para ver nuestras promociones y descuentos.</p>
+        </div>
+    </div>
+{% else %}
+    <div class="container">
+        <h1 class="my-4">Ofertas</h1>
+
+        <div class="row">
+            {% for producto in productos %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm product-card">
+                        <img src="{{ url_for('static', filename='images/productos/' + producto.imagen) }}"
+                             class="card-img-top"
+                             alt="{{ producto.nombre }}">
+
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ producto.nombre }}</h5>
+                            <p class="card-text text-muted mb-2">
+                                {{ producto.descripcion|truncate(100) }}
+                            </p>
+                            <p class="card-text fw-bold mb-2">
+                                ${{ producto.precio|floatformat(2) }}
+                            </p>
+                            <a href="{{ url_for('products.detalle_producto', id_producto=producto.id_producto) }}"
+                               class="btn btn-danger mt-auto">
+                                Ver detalles
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

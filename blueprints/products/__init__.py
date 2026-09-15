@@ -229,3 +229,16 @@ def eliminar_producto(id_producto):
         )
 
     return redirect(url_for('products.carrito'))
+
+@products_bp.route('/ofertas')
+@login_required
+def ofertas():
+
+    productos = Producto.query.filter(
+        Producto.tipo == 10, Producto.is_active == True
+    ).all()
+
+    return render_template(
+        'products/ofertas.html',
+        productos=productos
+    )
