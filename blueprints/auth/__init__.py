@@ -153,11 +153,16 @@ def recuperar_password():
             )
 
             flash(
-                "Si el correo está registrado, recibirás un enlace para restablecer tu contraseña.",
+                "Recibirás un enlace para restablecer tu contraseña.",
                 "success"
              )
-
-        return redirect(url_for("auth.login"))
+            return redirect(url_for("auth.login"))
+        else:
+            flash(
+                "Correo no encontrado. Prueba de nuevo.",
+                "danger"
+            )
+            return redirect(url_for("auth.recuperar_password")) 
 
     return render_template("auth/recuperar_pass.html")
 
