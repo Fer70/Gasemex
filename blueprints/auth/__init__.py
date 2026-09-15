@@ -181,7 +181,7 @@ def enviar_correo_recuperacion(email, nombre_usuario, reset_url):
     resend.api_key = os.getenv("RESEND_API_KEY")
 
     resend.Emails.send({
-    "from": f"Gases, Equipos y Soldaduras <{os.getenv('RESEND_FROM_EMAIL')}>",
+    "from": f"Gases, Equipos y Soldaduras <{os.getenv('MAIL_FROM')}>",
     "to": [email],
     "subject": "Recuperación de contraseña | GASEMEX",
     "html": f"""
