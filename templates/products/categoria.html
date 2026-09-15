@@ -13,6 +13,19 @@
             ⬅️ Volver a categorías
         </a>
     </div>
+    <form action="{{ url_for('products.buscar') }}" method="GET" class="d-flex">
+    <input 
+        type="search"
+        name="q"
+        class="form-control me-2"
+        placeholder="Buscar productos..."
+        value="{{ request.args.get('q', '') }}"
+    >
+
+        <button class="btn btn-danger" type="submit">
+        Buscar
+        </button>
+    </form>
 
     {% set subcategoria_activa = subcategoria_activa|default('') %}
 
