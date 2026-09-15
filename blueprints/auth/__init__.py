@@ -112,6 +112,8 @@ def login():
     return render_template('auth/login.html')
 
 @auth_bp.route("/recuperar-password", methods=["GET", "POST"])
+@anonymous_required
+@limiter.limit("5 per minute") 
 def recuperar_password():
     if request.method == "POST":
 
@@ -157,7 +159,7 @@ def recuperar_password():
 
         return redirect(url_for("auth.login"))
 
-    return render_template("recuperar_pass.html")
+    return render_template("auth/recuperar_pass.html")
 
 
 
@@ -304,6 +306,6 @@ def restablecer_password(token):
         return redirect(url_for("auth.login"))
 
     return render_template(
-    "restablecer_password.html",
+    "auth/restablecer_pass.html",
     token=token
 )
