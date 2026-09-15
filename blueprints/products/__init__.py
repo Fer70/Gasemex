@@ -235,7 +235,7 @@ def eliminar_producto(id_producto):
 def ofertas():
 
     productos = Producto.query.filter(
-        Producto.tipo == 10, Producto.is_active == True
+        Producto.tipo_fk == 10, Producto.is_active == True
     ).all()
 
     return render_template(
