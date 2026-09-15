@@ -281,7 +281,7 @@ def restablecer_password(token):
             )
 
             return render_template(
-                "restablecer_password.html",
+                "restablecer_pass.html",
                 token=token
             )
 
@@ -293,7 +293,7 @@ def restablecer_password(token):
             )
 
             return render_template(
-                "restablecer_password.html",
+                "auth/restablecer_pass.html",
                 token=token
             )
 
