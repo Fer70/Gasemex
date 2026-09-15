@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 import re
 from alchemyClasses.Usuario import Usuario
-from alchemyClasses.password_reset_tokens import PasswordResetToken
+from alchemyClasses.password_reset_tokens import PasswordResetTokens
 from alchemyClasses import db
 from email_validator import validate_email, EmailNotValidError
 from flask_login import login_user, logout_user, login_required
@@ -132,7 +132,7 @@ def recuperar_password():
 
             expires_at = datetime.now() + timedelta(hours=1)
 
-            reset_token = PasswordResetToken(
+            reset_token = PasswordResetTokens(
                 id_usuario=usuario.id_usuario,
                 token_hash=token_hash,
                 expires_at=expires_at
@@ -245,7 +245,7 @@ def restablecer_password(token):
     token_hash = hashlib.sha256(
         token.encode()
     ).hexdigest()
-    reset_token = PasswordResetToken.query.filter_by(
+    reset_token = PasswordResetTokens.query.filter_by(
         token_hash=token_hash,
         used=False
     ).first()
