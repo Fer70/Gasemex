@@ -27,6 +27,13 @@
                         <div class="mb-3">
                             <label class="form-label">Contraseña</label>
                             <input type="password" class="form-control" name="password" required>
+                            <div class="text-end mb-3">
+                            <a href="{{ url_for('auth.recuperar_password') }}"
+                            class="text-danger text-decoration-none">
+                            ¿Olvidaste tu contraseña?
+                        </a>
+                    </div>
+
                         </div>
 
                         <button type="submit" class="btn btn-danger w-100">Entrar</button>
