@@ -1,6 +1,6 @@
 from alchemyClasses import db
 
-class PasswordResetToken(db.Model):
+class PasswordResetTokens(db.Model):
     id_pass = db.Column(db.Integer, primary_key=True)
 
     id_usuario = db.Column(
