@@ -257,6 +257,14 @@ def ubicacion():
         return redirect(url_for("products.carrito"))
     usar_puntos = session.get("usar_puntos", False)
     puntos_disp = current_user.puntos
+    pedidos_user = Pedido.query.filter_by(id_usuario=current_user.id_usuario).all()
+    puntos_real = sum(pedido.puntos_generado for pedido in pedidos_user)
+    puntos_used = sum(pedido.puntos_usados for pedido in pedidos_user)
+    if puntos_disp != (puntos_real - puntos_used):
+        flash("Problema con tus puntos. Se han corregido automáticamente.", "warning")
+        current_user.puntos = puntos_real - puntos_used
+        db.session.commit()
+        return redirect(url_for("products.carrito "))
     total = sum(
         float(item["precio"]) * int(item["cantidad"])
         for item in carrito.values()
