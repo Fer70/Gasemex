@@ -264,7 +264,7 @@ def ubicacion():
         flash("Problema con tus puntos. Se han corregido automáticamente, intenta de nuevo.", "warning")
         current_user.puntos = puntos_real - puntos_used
         db.session.commit()
-        return redirect(url_for("products.carrito "))
+        return redirect(url_for("products.carrito"))
     total = sum(
         float(item["precio"]) * int(item["cantidad"])
         for item in carrito.values()
