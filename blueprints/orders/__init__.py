@@ -261,7 +261,7 @@ def ubicacion():
     puntos_real = sum(pedido.puntos_generado for pedido in pedidos_user)
     puntos_used = sum(pedido.puntos_usados for pedido in pedidos_user)
     if puntos_disp != (puntos_real - puntos_used):
-        flash("Problema con tus puntos. Se han corregido automáticamente.", "warning")
+        flash("Problema con tus puntos. Se han corregido automáticamente, intenta de nuevo.", "warning")
         current_user.puntos = puntos_real - puntos_used
         db.session.commit()
         return redirect(url_for("products.carrito "))
