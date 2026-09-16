@@ -257,7 +257,7 @@ def ubicacion():
         return redirect(url_for("products.carrito"))
     usar_puntos = session.get("usar_puntos", False)
     puntos_disp = current_user.puntos
-    pedidos_user = Pedido.query.filter_by(id_usuario=current_user.id_usuario, estado_pedido="entregado").all()
+    pedidos_user = Pedido.query.filter(Pedido.id_usuario == current_user.id_usuario, Pedido.pago.has(estado_pago="aprobado")).all()
     print(len(pedidos_user))
     puntos_real = sum(pedido.puntos_generado for pedido in pedidos_user)
     puntos_used = sum(pedido.puntos_usados for pedido in pedidos_user)
