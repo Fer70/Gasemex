@@ -27,7 +27,11 @@ SUBCATEGORIAS = {
     ],
     'Equipos': [
         ('maquinas', 'Máquinas'),
-        ('autogena', 'Autógena')
+        ('autogena', 'Autógena'),
+        ('reguladores', 'Reguladores'),
+        ('antorchas', 'Antorchas'),
+        ('equipos-de-soldar/cortar ', 'Equipos de soldar/cortar'),
+        ('accesorios', 'Accesorios')
     ]
 }
 
@@ -74,8 +78,12 @@ def subcategoria(categoria, tipo):
         'corte': ['corte', 'cortar'],
         'desbaste': ['desbaste', 'desbastar'],
 
-        'maquinas': ['máquina', 'maquina', 'soldadora', 'inversora'],
-        'autogena': ['autógena', 'autogena', 'soplete', 'regulador']
+        'maquinas': ['rogue', 'redbo', 'lhn', '250','bufalito', '350', 'cutmaster', 'power', 'adir', '130', '200'],
+        'autogena': ['soplete', 'cortador', 'tortuga'],
+        'reguladores': ['regulador', 'manometro', 'valvula'],
+        'antorchas': ['antorcha'],
+        'equipos-de-soldadura': ['equipo'],
+        'accesorios': ['portaelectrodo', 'pinza', 'cable', 'masa', 'manguera']
     }
 
     palabras = palabras_clave.get(tipo, [])
