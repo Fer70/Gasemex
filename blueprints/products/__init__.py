@@ -30,7 +30,7 @@ SUBCATEGORIAS = {
         ('autogena', 'Autógena'),
         ('reguladores', 'Reguladores'),
         ('antorchas', 'Antorchas'),
-        ('equipos soldar/cortar', 'Equipos soldar/cortar'),
+        ('equipos-soldar/cortar', 'Equipos-soldar/cortar'),
         ('accesorios', 'Accesorios')
     ]
 }
@@ -82,7 +82,7 @@ def subcategoria(categoria, tipo):
         'autogena': ['soplete', 'cortador', 'tortuga'],
         'reguladores': ['regulador', 'manometro', 'valvula'],
         'antorchas': ['antorcha'],
-        'equipos soldar/cortar': ['equipo'],
+        'equipos-soldar/cortar': ['equipo'],
         'accesorios': ['portaelectrodo', 'pinza', 'cable','horno', 'manguera']
     }
 
