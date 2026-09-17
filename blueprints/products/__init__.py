@@ -78,7 +78,7 @@ def subcategoria(categoria, tipo):
         'corte': ['corte', 'cortar'],
         'desbaste': ['desbaste', 'desbastar'],
 
-        'maquinas': ['rogue', 'redbo', 'lhn', '250', 'bufalito', '350', 'cutmaster', 'power', 'adir', '130', '200'],
+        'maquinas': ['rogue', 'redbo', 'lhn', '250', 'bufalito', '350', 'cutmaster', 'power', 'adir', '130', 'TT'],
         'autogena': ['soplete', 'cortador', 'tortuga'],
         'reguladores': ['regulador', 'manometro', 'valvula'],
         'antorchas': ['antorcha'],
