@@ -82,7 +82,7 @@ def subcategoria(categoria, tipo):
         'autogena': ['soplete', 'cortador', 'tortuga'],
         'reguladores': ['regulador', 'manometro', 'valvula'],
         'antorchas': ['antorcha'],
-        'equipos-de-soldadura': ['equipo'],
+        'equipos-de-soldar/cortar': ['equipo'],
         'accesorios': ['portaelectrodo', 'pinza', 'cable','horno', 'manguera']
     }
 
