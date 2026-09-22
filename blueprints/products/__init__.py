@@ -91,7 +91,7 @@ def subcategoria(categoria, tipo):
         'reguladores': ['regulador', 'manometro', 'valvula'],
         'antorchas': ['antorcha'],
         'equipos-soldar-cortar': ['equipo'],
-        'accesorios': ['portaelectrodo', 'pinza', 'cable','horno', 'manguera'],
+        'accesorios': ['porta', 'pinza', 'cable','horno', 'manguera'],
 
         'guantes' : ['guante', 'guantes'],
         'caretas' : ['careta', 'caretas'],
