@@ -18,3 +18,5 @@ def contacto():
 @home_bp.route("/privacidad")
 def privacidad():
     return render_template("privacy.html")
+
+

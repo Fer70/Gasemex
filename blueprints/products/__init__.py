@@ -32,6 +32,14 @@ SUBCATEGORIAS = {
         ('antorchas', 'Antorchas'),
         ('equipos-soldar-cortar', 'Equipos-soldar-cortar'),
         ('accesorios', 'Accesorios')
+    ],
+    'Seguridad': [
+        ('guantes', 'Guantes'),
+        ('caretas', 'Caretas'),
+        ('cuerpo', 'Cuerpo'),
+        ('botas', 'Botas'),
+        ('lentes', 'Lentes'),
+        ('cascos', 'Cascos')
     ]
 }
 
@@ -79,11 +87,18 @@ def subcategoria(categoria, tipo):
         'desbaste': ['desbaste', 'desbastar'],
 
         'maquinas': ['rogue', 'redbo', 'lhn', '250', 'bufalito', '350', 'cutmaster', 'power', 'adir', '130', 'TT'],
-        'autogena': ['soplete', 'cortador', 'tortuga'],
+        'autogena': ['soplete', 'cortador', 'tortuga', 'maneral', 'aditamento'],
         'reguladores': ['regulador', 'manometro', 'valvula'],
         'antorchas': ['antorcha'],
         'equipos-soldar-cortar': ['equipo'],
-        'accesorios': ['portaelectrodo', 'pinza', 'cable','horno', 'manguera']
+        'accesorios': ['portaelectrodo', 'pinza', 'cable','horno', 'manguera'],
+
+        'guantes' : ['guante', 'guantes'],
+        'caretas' : ['careta', 'caretas'],
+        'cuerpo' : ['mangas', 'chalecos', 'peto', 'camisola' ],
+        'botas' : ['bota', 'botas'],
+        'lentes' : ['gogles', 'gafas', 'lentes'],
+        'cascos' : ['casco', 'cascos', 'capucha']
     }
 
     palabras = palabras_clave.get(tipo, [])

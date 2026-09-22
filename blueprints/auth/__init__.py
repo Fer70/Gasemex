@@ -284,7 +284,7 @@ def restablecer_password(token):
                 "restablecer_pass.html",
                 token=token
             )
-
+                
         if len(password) < 8:
 
             flash(

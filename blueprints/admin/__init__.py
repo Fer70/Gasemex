@@ -144,6 +144,7 @@ def cambiar_estado(id_pedido):
     return redirect(url_for("admin.pedidos"))
 
 
+
 def enviar_correo(email, nombre_usuario, id_pedido, estado_pedido):
     resend.api_key = os.getenv("RESEND_API_KEY")
 
