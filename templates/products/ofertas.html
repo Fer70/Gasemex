@@ -30,9 +30,9 @@
                             <p class="card-text fw-bold mb-2">
                                 ${{ producto.precio }}
                             </p>
-                            <a href="{{ url_for('products.detalle_producto', id_producto=producto.id_producto) }}"
+                            <a href="{{ url_for('products.agregar_carrito', id_producto=producto.id_producto) }}"
                                class="btn btn-danger mt-auto">
-                                Ver detalles
+                                Agregar al carrito
                             </a>
                         </div>
                     </div>
