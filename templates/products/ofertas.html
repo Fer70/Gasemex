@@ -1,4 +1,4 @@
-{% extends 'base.html' % %}
+{% extends 'base.html' %}
 
 <p> OFERTAS </p>
 
@@ -18,21 +18,21 @@
             {% for producto in productos %}
                 <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm product-card">
-                        <img src="{{ url_for('static', filename='images/productos/' + producto.imagen) }}"
-                             class="card-img-top"
-                             alt="{{ producto.nombre }}">
+                        <img  src="{{ config['R2_PUBLIC_URL'] }}/products/{{ producto.imagen or 'default.png' }}"
+                                class="card-img-top product-image"
+                                alt="{{ producto.nombre_producto }}">
 
                         <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">{{ producto.nombre }}</h5>
+                            <h5 class="card-title">{{ producto.nombre_producto }}</h5>
                             <p class="card-text text-muted mb-2">
-                                {{ producto.descripcion|truncate(100) }}
+                                {{ producto.descripcion }}
                             </p>
                             <p class="card-text fw-bold mb-2">
-                                ${{ producto.precio|floatformat(2) }}
+                                ${{ producto.precio }}
                             </p>
-                            <a href="{{ url_for('products.detalle_producto', id_producto=producto.id_producto) }}"
+                            <a href="{{ url_for('products.agregar_carrito', id_producto=producto.id_producto) }}"
                                class="btn btn-danger mt-auto">
-                                Ver detalles
+                                Agregar al carrito
                             </a>
                         </div>
                     </div>
