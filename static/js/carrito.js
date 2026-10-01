@@ -75,52 +75,45 @@ const { useState } = React;
         }
 
         return React.createElement(
-            React.Fragment,
-            null,
+    'div',
+    {
+        className: 'quantity-selector'
+    },
 
-            React.createElement(
-                'button',
-                {
-                    type: 'button',
-                    className:
-                        'btn btn-outline-secondary btn-sm quantity-btn',
-                    disabled: loading,
-                    onClick: () =>
-                        updateQuantity('disminuir')
-                },
-                React.createElement(
-                    'i',
-                    {
-                        className: 'bi bi-dash-lg'
-                    }
-                )
-            ),
+    React.createElement(
+        'button',
+        {
+            type: 'button',
+            className: 'quantity-btn quantity-minus',
+            disabled: loading,
+            onClick: () => updateQuantity('disminuir')
+        },
+        React.createElement('i', {
+            className: 'bi bi-dash-lg'
+        })
+    ),
 
-            React.createElement(
-                'span',
-                {
-                    className: 'mx-3'
-                },
-                quantity
-            ),
+    React.createElement(
+        'span',
+        {
+            className: 'quantity-value'
+        },
+        quantity
+    ),
 
-            React.createElement(
-                'button',
-                {
-                    type: 'button',
-                    className:
-                        'btn btn-outline-success btn-sm quantity-btn',
-                    disabled: loading,
-                    onClick: () =>
-                        updateQuantity('aumentar')
-                },
-                React.createElement(
-                    'i',
-                    {
-                        className: 'bi bi-plus-lg'
-                    }
-                )
-            )
+    // Botón aumentar
+    React.createElement(
+        'button',
+        {
+            type: 'button',
+            className: 'quantity-btn quantity-plus',
+            disabled: loading,
+            onClick: () => updateQuantity('aumentar')
+        },
+        React.createElement('i', {
+            className: 'bi bi-plus-lg'
+        })
+        )   
         );
     }
 

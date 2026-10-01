@@ -232,16 +232,72 @@ body {
     font-size: 12px;
     font-weight: bold;
 }
-.quantity-btn {
-
-    width: 35px;
-    height: 35px;
-
-    display: flex;
-    justify-content: center;
+/* Contenedor de los controles */
+.quantity-selector {
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
+    gap: 12px;
+    white-space: nowrap;
+}
 
-    font-weight: bold;
+/* Botones */
+.quantity-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+/* Disminuir */
+.quantity-minus {
+    background-color: #fff0f0;
+    color: #dc3545;
+}
+
+.quantity-minus:hover:not(:disabled) {
+    background-color: #dc3545;
+    color: white;
+    transform: scale(1.08);
+}
+
+/* Aumentar */
+.quantity-plus {
+    background-color: #e5f7ec;
+    color: #ee8b1a;
+}
+
+.quantity-plus:hover:not(:disabled) {
+    background-color: #cc150e;
+    color: white;
+    transform: scale(1.08);
+}
+
+/* Cantidad */
+.quantity-value {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #343a40;
+}
+
+/* Estado de carga */
+.quantity-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
 }
 .dashboard-card {
     border: none;
