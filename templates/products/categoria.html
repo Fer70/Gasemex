@@ -12,20 +12,27 @@
            class="btn btn-outline-secondary">
             ⬅️ Volver a categorías
         </a>
-    </div>
-    <form action="{{ url_for('products.buscar') }}" method="GET" class="d-flex">
-    <input 
-        type="search"
-        name="q"
-        class="form-control me-2"
-        placeholder="Buscar productos..."
-        value="{{ request.args.get('q', '') }}"
-    >
+    <form
+            action="{{ url_for('products.buscar') }}"
+            method="GET"
+            class="catalog-search mx-auto"
+        >
+            <i class="bi bi-search search-icon"></i>
 
-        <button class="btn btn-danger" type="submit">
-        Buscar
-        </button>
-    </form>
+            <input
+                type="search"
+                name="q"
+                class="catalog-search-input"
+                placeholder="Buscar productos..."
+                value="{{ request.args.get('q', '') }}"
+                aria-label="Buscar productos"
+            >
+
+            <button type="submit" class="catalog-search-btn">
+                Buscar
+            </button>
+        </form>
+    </div>
 
     {% set subcategoria_activa = subcategoria_activa|default('') %}
 
