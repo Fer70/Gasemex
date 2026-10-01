@@ -35,6 +35,35 @@
 
     </div>
 
+    <!-- Búsqueda de productos -->
+    <div class="dashboard-search-section mb-5">
+
+        <h5 class="fw-semibold text-center mb-3">
+            ¿Qué producto estás buscando?
+        </h5>
+
+        <form
+            action="{{ url_for('products.buscar') }}"
+            method="GET"
+            class="catalog-search mx-auto"
+        >
+            <i class="bi bi-search search-icon"></i>
+
+            <input
+                type="search"
+                name="q"
+                class="catalog-search-input"
+                placeholder="Buscar gases, soldaduras, equipos..."
+                aria-label="Buscar productos"
+            >
+
+            <button type="submit" class="catalog-search-btn">
+                Buscar
+            </button>
+        </form>
+
+    </div>
+
     <!-- Estadísticas -->
     <div class="row mb-4">
 

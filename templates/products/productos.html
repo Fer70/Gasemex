@@ -13,27 +13,27 @@
             <i class="bi bi-arrow-left"></i>
             Volver a catálogo
         </a>
+<div class="dashboard-search-section mb-5">
+    <form
+        action="{{ url_for('products.buscar') }}"
+        method="GET"
+        class="catalog-search mx-auto"
+    >
+        <i class="bi bi-search search-icon"></i>
 
-<form
-            action="{{ url_for('products.buscar') }}"
-            method="GET"
-            class="catalog-search mx-auto"
+        <input
+            type="search"
+            name="q"
+            class="catalog-search-input"
+            placeholder="Buscar productos..."
+            value="{{ request.args.get('q', '') }}"
+            aria-label="Buscar productos"
         >
-            <i class="bi bi-search search-icon"></i>
 
-            <input
-                type="search"
-                name="q"
-                class="catalog-search-input"
-                placeholder="Buscar productos..."
-                value="{{ request.args.get('q', '') }}"
-                aria-label="Buscar productos"
-            >
-
-            <button type="submit" class="catalog-search-btn">
-                Buscar
-            </button>
-        </form>
+        <button type="submit" class="catalog-search-btn">
+            Buscar
+        </button>
+    </form>
 </div>
 <div class="row">
 
