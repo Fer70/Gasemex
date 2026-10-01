@@ -3,29 +3,42 @@
 {% block content %}
 
 <div class="container mt-5">
-<form action="{{ url_for('products.buscar') }}" method="GET" class="d-flex">
-    <input 
-        type="search"
-        name="q"
-        class="form-control me-2"
-        placeholder="Buscar productos..."
-        value="{{ request.args.get('q', '') }}"
-    >
 
-    <button class="btn btn-danger" type="submit">
-        Buscar
-    </button>
-</form>
-    <div class="text-center mb-5">
+    <div class="catalog-header text-center mb-5">
 
-        <h1 class="fw-bold">
+        <h1 class="fw-bold mb-2">
             Catálogo de Productos
         </h1>
 
-
-        <p class="text-muted">
+        <p class="text-muted mb-4">
+            Encuentra los productos que necesitas
+        </p>
+         <p class="text-muted">
             Selecciona una categoría para explorar nuestros productos.
         </p>
+
+        <form
+            action="{{ url_for('products.buscar') }}"
+            method="GET"
+            class="catalog-search mx-auto"
+        >
+            <i class="bi bi-search search-icon"></i>
+
+            <input
+                type="search"
+                name="q"
+                class="catalog-search-input"
+                placeholder="Buscar productos..."
+                value="{{ request.args.get('q', '') }}"
+                aria-label="Buscar productos"
+            >
+
+            <button type="submit" class="catalog-search-btn">
+                Buscar
+            </button>
+        </form>
+
+    </div>
 
     </div>
 
