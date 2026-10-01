@@ -17,7 +17,7 @@ const { useState } = React;
             try {
 
                 const response = await fetch(
-                    `/api/carrito/${action}/${id}`,
+                    `products/api/carrito/${action}/${id}`,
                     {
                         method: 'POST',
                         headers: {

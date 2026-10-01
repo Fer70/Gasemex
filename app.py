@@ -37,7 +37,6 @@ def create_app():
     app.register_blueprint(home_bp)
     app.register_blueprint(profile_bp)
     app.register_blueprint(products_bp)
-    print(app.url_map)
     app.register_blueprint(orders_bp)
     app.register_blueprint(admin_bp)
 
