@@ -224,6 +224,9 @@ def api_disminuir_producto(id_producto):
 @limiter.limit("15 per minute")  # Limitar a 15 solicitudes por minuto
 def buscar():
     query = request.args.get('q', '').strip()
+    if len(query) < 4:
+        flash('La búsqueda debe tener al menos 4 caracteres.', 'warning')
+        return redirect(url_for('products.index'))
 
     productos = Producto.query.filter(
         Producto.nombre_producto.ilike(f'%{query}%'), Producto.is_active == True
