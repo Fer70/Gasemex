@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session, flash
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash, jsonify
 from flask_login import login_required
 from alchemyClasses.Producto import Producto
 from alchemyClasses.Tipo import Tipo
@@ -77,7 +77,7 @@ def subcategoria(categoria, tipo):
         'microalambre': ['microalambre', 'mig'],
         'varillas': ['varilla'],
         'tungstenos': ['tungsteno'],
-        'productos-soldar':['líquido', 'para', 'gel', 'spray', 'decapante'],
+        'productos-soldar':['líquido', 'fundente', 'gel', 'spray', 'decapante'],
 
         'mig': ['mig', 'tobera', 'punta', 'difusor'],
         'tig': ['tig', 'copa', 'espiga', 'porta'],
@@ -150,6 +150,74 @@ def agregar_carrito(id_producto):
     )
 
     return redirect(request.referrer or '/products')
+
+@products_bp.route('/api/carrito/aumentar/<int:id_producto>', methods=['POST'])
+@login_required
+@user_required
+def api_aumentar_producto(id_producto):
+
+    carrito = session.get('carrito', {})
+    id_str = str(id_producto)
+
+    if id_str not in carrito:
+        return jsonify({
+            'error': 'Producto no encontrado en el carrito'
+        }), 404
+
+    carrito[id_str]['cantidad'] += 1
+
+    session['carrito'] = carrito
+
+    item = carrito[id_str]
+
+    return jsonify({
+        'id_producto': id_producto,
+        'cantidad': item['cantidad'],
+        'subtotal': float(
+            item['precio'] * item['cantidad']
+        )
+    })
+
+@products_bp.route('/api/carrito/disminuir/<int:id_producto>', methods=['POST'])
+@login_required
+@user_required
+def api_disminuir_producto(id_producto):
+
+    carrito = session.get('carrito', {})
+    id_str = str(id_producto)
+
+    if id_str not in carrito:
+        return jsonify({
+            'error': 'Producto no encontrado en el carrito'
+        }), 404
+
+    carrito[id_str]['cantidad'] -= 1
+
+    eliminado = False
+
+    if carrito[id_str]['cantidad'] <= 0:
+        del carrito[id_str]
+        eliminado = True
+
+    session['carrito'] = carrito
+
+    if eliminado:
+        return jsonify({
+            'id_producto': id_producto,
+            'cantidad': 0,
+            'eliminado': True
+        })
+
+    item = carrito[id_str]
+
+    return jsonify({
+        'id_producto': id_producto,
+        'cantidad': item['cantidad'],
+        'subtotal': float(
+            item['precio'] * item['cantidad']
+        ),
+        'eliminado': False
+    })
 
 @products_bp.route('/buscar')
 @login_required

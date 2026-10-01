@@ -51,7 +51,7 @@
 
                 {% for id_producto,item in carrito.items() %}
 
-                    <tr>
+                    <tr data-producto-id="{{ id_producto }}">
 
                         <td>
 
@@ -77,33 +77,12 @@
 
                         <td>
 
-                            <div class="d-flex align-items-center">
-
-                            <a href="{{ url_for(
-                            'products.disminuir_producto',
-                             id_producto=id_producto
-                                                ) }}"
-                             class="btn btn-outline-secondary btn-sm quantity-btn">
-                             <i class="bi bi-dash-lg"></i>
-
-                         </a>
-
-                          <span class="mx-3">
-
-                             {{ item.cantidad }}
-
-                         </span>
-
-                          <a href="{{ url_for(
-                             'products.aumentar_producto',
-                             id_producto=id_producto
-                                     ) }}"
-                              class="btn btn-outline-success btn-sm quantity-btn">
-                              <i class="bi bi-plus-lg"></i>
-
-                         </a>
-
-                     </div>
+                            <div
+                                    class="quantity-control"
+                                    data-id="{{ id_producto }}"
+                                    data.cantidad="{{ item.cantidad }}">
+                            </div>
+                            
 
                 </td>
     
@@ -113,7 +92,7 @@
 
                         <td>
 
-                            <strong>
+                            <strong class="product-subtotal">
 
                                 ${{ "%.2f"|format(
                                     item.precio * item.cantidad
@@ -221,5 +200,13 @@
     {% endif %}
 
 </div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="{{ url_for('static', filename='js/carrito.js') }}"></script>
+ 
+{% endblock %}
+
+{% block scripts %}
 
 {% endblock %}
