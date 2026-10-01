@@ -54,17 +54,17 @@
             </a>
 
             <button
-                class="navbar-toggler"
+                class="navbar-toggler position-relative"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#navbarNav">
-                <span class="cart-badge">
-
-                                {{ carrito_count }}
-
-                            </span>
 
                 <span class="navbar-toggler-icon"></span>
+                {% if carrito_count > 0 %}
+                <span class="cart-badge">
+                    {{ carrito_count }}
+                </span>
+                {% endif %}
 
             </button>
             {% if not current_user.is_authenticated %}
