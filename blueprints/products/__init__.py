@@ -153,7 +153,6 @@ def agregar_carrito(id_producto):
 
 @products_bp.route('/api/carrito/aumentar/<int:id_producto>', methods=['POST'])
 @login_required
-@user_required
 def api_aumentar_producto(id_producto):
 
     carrito = session.get('carrito', {})
@@ -180,7 +179,6 @@ def api_aumentar_producto(id_producto):
 
 @products_bp.route('/api/carrito/disminuir/<int:id_producto>', methods=['POST'])
 @login_required
-@user_required
 def api_disminuir_producto(id_producto):
 
     carrito = session.get('carrito', {})
