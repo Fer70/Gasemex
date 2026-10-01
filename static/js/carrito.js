@@ -126,19 +126,18 @@ const { useState } = React;
 
 
     document
-        .querySelectorAll('.quantity-control')
-        .forEach(element => {
+    .querySelectorAll('.quantity-control')
+    .forEach(element => {
 
-            const id = element.dataset.id;
+        const id = element.dataset.id;
 
-            const cantidad =
-                parseInt(
-                    element
-                        .querySelector('.quantity')
-                        .textContent
-                );
+        const cantidad =
+            parseInt(element.dataset.cantidad);
 
-            ReactDOM.createRoot(element).render(
+        ReactDOM
+            .createRoot(element)
+            .render(
+
                 React.createElement(
                     QuantityControl,
                     {
@@ -146,5 +145,7 @@ const { useState } = React;
                         cantidad: cantidad
                     }
                 )
+
             );
-        });
+
+    });
