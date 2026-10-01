@@ -273,11 +273,11 @@ body {
 /* Aumentar */
 .quantity-plus {
     background-color: #e5f7ec;
-    color: #ee8b1a;
+    color: #1a120a;
 }
 
 .quantity-plus:hover:not(:disabled) {
-    background-color: #cc150e;
+    background-color: #09fa01;
     color: white;
     transform: scale(1.08);
 }
@@ -426,4 +426,91 @@ body {
 .card-body {
     padding: 1.5rem;
     background-color: linear-gradient(135deg, #eb0404, #f8f9fa);
+}
+
+/* Encabezado del catálogo */
+.catalog-header h1 {
+    color: var(--bs-body-color);
+    letter-spacing: -0.5px;
+}
+
+/* Barra de búsqueda */
+.catalog-search {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 550px;
+    padding: 6px;
+    gap: 10px;
+
+    background: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: 50px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+/* Efecto al seleccionar la búsqueda */
+.catalog-search:focus-within {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.12);
+}
+
+/* Icono */
+.search-icon {
+    color: var(--bs-secondary-color);
+    font-size: 1.15rem;
+    margin-left: 12px;
+}
+
+/* Campo de texto */
+.catalog-search-input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--bs-body-color);
+    font-size: 0.95rem;
+    padding: 10px 0;
+}
+
+.catalog-search-input::placeholder {
+    color: var(--bs-secondary-color);
+    opacity: 0.8;
+}
+
+/* Botón */
+.catalog-search-btn {
+    border: none;
+    border-radius: 50px;
+    padding: 10px 22px;
+    background: #dc3545;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease,
+                transform 0.2s ease;
+}
+
+.catalog-search-btn:hover {
+    background: #bb2d3b;
+    transform: translateY(-1px);
+}
+
+.catalog-search-btn:active {
+    transform: scale(0.97);
+}
+
+/* Móviles */
+@media (max-width: 576px) {
+    .catalog-search {
+        max-width: 100%;
+    }
+
+    .catalog-search-btn {
+        padding: 9px 16px;
+    }
 }
